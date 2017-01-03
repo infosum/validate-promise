@@ -3,9 +3,8 @@ Promised based validation library
 
 ## Installation
 
-(still to do...)
 ```
-npm install validation-promise
+npm install validate-promise
 ```
 
 ## Usage
@@ -20,17 +19,17 @@ var contract = [
         msg: (value, row, arg) => value + ' not an int',
         arg: {}
       }];
-      
+
 var data = {
         age: '11'
       };
-      
+
 validate(contract, data)
         .then(() => {
           // The validations have passed...
         })
         .catch(error => {
-          // Validations failed - error is an object keyed on data keys, and containing an array of error messages. 
+          // Validations failed - error is an object keyed on data keys, and containing an array of error messages.
         });
 ```
 
