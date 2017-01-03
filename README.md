@@ -34,3 +34,11 @@ validate(contract, data)
         });
 ```
 
+## Validations
+
+* After
+* Before
+* Greaterthan
+* Int
+* Lessthan
+* Required
