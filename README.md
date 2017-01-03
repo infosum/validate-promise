@@ -44,3 +44,4 @@ validate(contract, data)
 * Int
 * Lessthan
 * Required
+* Whitelist

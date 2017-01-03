@@ -2,10 +2,12 @@
 
 import after from './rules/after';
 import before from './rules/before';
+import blacklist from './rules/blacklist';
 import greaterthan from './rules/greaterthan';
 import int from './rules/int';
 import lessthan from './rules/lessthan';
 import required from './rules/required';
+import whitelist from './rules/whitelist';
 import type {ValidationPromise, Validation, ValidationResponse} from './flow-declarations';
 
 /**
@@ -77,8 +79,10 @@ export default validate;
 export {
   after,
   before,
+  blacklist,
   greaterthan,
   int,
   lessthan,
-  required
+  required,
+  whitelist
 };
