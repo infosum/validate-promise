@@ -6,28 +6,30 @@ import greaterthan from './rules/greaterthan';
 import int from './rules/int';
 import lessthan from './rules/lessthan';
 import required from './rules/required';
+import type {ValidationPromise, Validation, ValidationResponse} from './flow-declarations';
 
-type Validation = {
-  promises: Array<(value: string, row: Object, arg: any) => string>;
-  key: string;
-  msg: (value: string, row: Object, arg: any) => string
-};
-
+/**
+ * Iterates over an array of promises, unline Promise.all it will not
+ * stop when one promise is rejected. Instead all promises are run and an
+ * array of objects describing the promise resolution is returned
+ */
 const hashSettled = (promises: Object): Promise<Object[]> => {
     let keys: string[] = Object.keys(promises);
     return Promise.all(keys.map(k => Promise.resolve(promises[k])
     .then(value => {
-      return {
+      let r: ValidationResponse = {
         state: 'fulfilled',
         key: k,
         value
-      };
+      }
+      return r;
     }, reason => {
-      return {
+      let r: ValidationResponse = {
         state: 'rejected',
         key: k,
         reason
       };
+      return r;
     })));
   },
 
@@ -39,12 +41,12 @@ const hashSettled = (promises: Object): Promise<Object[]> => {
    * array error messages keyed on field.name
    */
   validate = (contract: Array<Validation>, data: Object): boolean|Object => {
-    let promises : Object = {};
-    contract.forEach(validation => {
+    let promises: Object = {};
+    contract.forEach((validation: Validation) => {
       let name = validation.key,
         value = data[name],
         arg = validation.arg || null;
-      validation.promises.forEach((p, i) => {
+      validation.promises.forEach((p: ValidationPromise, i: number) => {
         let key = name + '.' + i;
         promises[key] = p(value, data, validation.msg, arg);
       });
@@ -53,10 +55,10 @@ const hashSettled = (promises: Object): Promise<Object[]> => {
     return new Promise((resolve, reject) => {
       hashSettled(promises)
         .then((res: Array<Object>) => {
-          let errors = res.filter(r => r.state === 'rejected'),
+          let errors = res.filter((r: ValidationResponse) => r.state === 'rejected'),
             ret = {};
-          errors.forEach(err => {
-            let k = err.key.split('.').shift();
+          errors.forEach((err: ValidationResponse) => {
+            let k: string = err.key.split('.').shift();
             if (!ret[k]) {
               ret[k] = [];
             }
