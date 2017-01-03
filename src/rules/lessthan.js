@@ -1,3 +1,4 @@
+// @flow
 
 /**
  * Check if a value is less than foo
@@ -7,7 +8,7 @@
  * @param {*} arg Validation arguement
  * @return {Promise} .
  */
-export default (value, row, msg, arg) => {
+export default (value: string, row: Object, msg: Function, arg: number) : Promise<?string> => {
   if (parseInt(value, 10) < arg) {
     return Promise.resolve();
   }
