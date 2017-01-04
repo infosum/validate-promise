@@ -127,7 +127,24 @@ contract = [
     msg: (value, row, arg) => 'Sales must be greater than 0'
   }]
 ```
-Tests a value is greater than the supplied argument
+Tests a value is greater than the supplied argument.
+Alternatively you can compare two arbitrary values with the following contract:
+
+```javascript
+contract = [
+  {
+    key: 'sales',
+    promises: [
+      {
+        rule: greaterthan,
+        arg: (value, row) => ({compare: 0, value: 10})
+      }
+    ],
+    msg: (value, row, arg) => 'Sales must be greater than 0'
+  }]
+```
+
+This tests if value (10) is greater than the compare (0) value.
 
 ### Int
 
@@ -163,6 +180,23 @@ contract = [
   }];
 ```
 Test a value is less than the supplied argument.
+Alternatively you can compare two arbitrary values with the following contract:
+
+```javascript
+contract = [
+  {
+    key: 'age',
+    promises: [
+      {
+        rule: lessthan,
+        arg: (value, row) => ({compare: 0, value: 10})
+      }
+    ],
+    msg: (value, row, arg) => 'Age must be greater than 0'
+  }]
+```
+
+This tests if value (10) is less than than the compare (0) value.
 
 ### Required
 

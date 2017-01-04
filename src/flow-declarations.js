@@ -1,6 +1,6 @@
 export function ValidationPromise(
-  value: string,
-  row: Object,
+  value: string;
+  row: Object;
   arg: any[]
 ): Promise<?string>;
 
@@ -11,7 +11,7 @@ export type Validation = {
 };
 
 export type ValidationResponse = {
-  state: string,
-  key: string,
+  state: string;
+  key: string;
   value: string
 }

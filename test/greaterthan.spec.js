@@ -2,9 +2,10 @@ import {expect} from 'chai';
 import validate, {greaterthan} from '../dist/index';
 
 describe('validates', () => {
-  let res, failed,
+  let res, failed, resReturnObject,
     contract = [
-      {key: 'age',
+      {
+        key: 'age',
         promises: [
           {
             rule: greaterthan,
@@ -12,7 +13,20 @@ describe('validates', () => {
           }
         ],
         msg: (value, row, arg) => 'age greater than 18'
+      }],
+
+      contractReturnObject = [
+        {
+        key: 'age',
+        promises: [
+          {
+            rule: greaterthan,
+            arg: () => ({compare: 18, value: 19})
+          }
+        ],
+        msg: (value, row, arg) => 'age (19) greater than 18'
       }];
+
   describe('greater than success', done => {
     beforeEach(done => {
       let data = {
@@ -29,6 +43,25 @@ describe('validates', () => {
 
     it('passes the validation', () => {
       expect(res).to.equal(true);
+    });
+  });
+
+  describe('greater than success: return object', done => {
+    beforeEach(done => {
+      let data = {
+        age: '19'
+      };
+
+      validate(contractReturnObject, data)
+        .then(data => {
+          resReturnObject = data;
+          done();
+        })
+        .catch(error => done());
+    });
+
+    it('passes the validation', () => {
+      expect(resReturnObject).to.equal(true);
     });
   });
 

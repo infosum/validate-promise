@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import validate, {lessthan} from '../dist/index';
 
 describe('validates', () => {
-  let res, failed,
+  let res, failed, resLessThanSuccess,
     contract = [
       {key: 'age',
         promises: [
@@ -12,7 +12,20 @@ describe('validates', () => {
           }
         ],
         msg: (value, row, arg) => 'age less than 18'
+      }],
+
+       contractReturnObject = [
+        {
+        key: 'age',
+        promises: [
+          {
+            rule: lessthan,
+            arg: () => ({compare: 21, value: 19})
+          }
+        ],
+        msg: (value, row, arg) => 'age (19) less than 21'
       }];
+
   describe('less than success', done => {
     beforeEach(done => {
       let data = {
@@ -29,6 +42,25 @@ describe('validates', () => {
 
     it('passes the validation', () => {
       expect(res).to.equal(true);
+    });
+  });
+
+  describe('less than success: return object', done => {
+    beforeEach(done => {
+      let data = {
+        age: '17'
+      };
+
+      validate(contractReturnObject, data)
+        .then(data => {
+          resLessThanSuccess = data;
+          done();
+        })
+        .catch(error => done());
+    });
+
+    it('passes the validation', () => {
+      expect(resLessThanSuccess).to.equal(true);
     });
   });
 

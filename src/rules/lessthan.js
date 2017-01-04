@@ -1,6 +1,10 @@
 // @flow
 
 type ArgFunc = (value: string, row: Object) => number;
+type CompareSet = {
+  value: string;
+  compare: string
+};
 
 /**
  * Check if a value is less than foo
@@ -10,12 +14,19 @@ type ArgFunc = (value: string, row: Object) => number;
  * @param {*} arg Validation arguement
  * @return {Promise} .
  */
-export default (value: string, row: Object, msg: Function, arg: number|ArgFunc) : Promise<?string> => {
+export default (value: string, row: Object, msg: Function, arg: number|ArgFunc|CompareSet) : Promise<?string> => {
+  let compare = arg;
   if (typeof arg === 'function') {
-    arg = arg(value, row);
+    compare = arg(value, row);
   }
-  if (parseInt(value, 10) < arg) {
+  if (typeof compare === 'object') {
+    value = compare.value;
+    compare = compare.compare;
+  }
+
+  if (parseInt(value, 10) < parseInt(compare, 10)) {
     return Promise.resolve();
   }
+
   return Promise.reject(msg(value, row, arg));
 };

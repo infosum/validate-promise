@@ -12,12 +12,12 @@ var webpack = require('webpack'),
   ];
 
 
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  }
-  ));
+  // plugins.push(new webpack.optimize.UglifyJsPlugin({
+  //   compress: {
+  //     warnings: false
+  //   }
+  // }
+  // ));
 
 module.exports = {
   devtool: 'cheap-module-source-map',
