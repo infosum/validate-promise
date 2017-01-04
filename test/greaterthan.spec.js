@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import validate, {greaterthan} from '../src/index';
+import validate, {greaterthan} from '../dist/index';
 
 describe('validates', () => {
   let res, failed,

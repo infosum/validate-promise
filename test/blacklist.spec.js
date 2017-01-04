@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import validate, {blacklist} from '../src/index';
+import validate, {blacklist} from '../dist/index';
 
 describe('validates', () => {
   let res, failed,

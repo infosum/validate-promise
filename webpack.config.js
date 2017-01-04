@@ -1,4 +1,5 @@
 var webpack = require('webpack'),
+  libraryName = 'validate-promise',
   path = require('path'),
   entry = [
     './src/index.js'
@@ -24,13 +25,13 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'index.js'
+    filename: 'index.js',
+    library: libraryName,
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   module: {
     loaders: loaders
-  },
-  externals: {
-    fs: '{}'
   },
   plugins: plugins,
   watchOptions: {

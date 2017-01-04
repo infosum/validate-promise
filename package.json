@@ -1,6 +1,6 @@
 {
   "name": "validate-promise",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Promised based validaation library",
   "main": "dist/index.js",
   "scripts": {
@@ -33,6 +33,10 @@
     "presets": [
       "es2015"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cognitivelogic/validation-promise.git"
   },
   "dependencies": {}
 }
