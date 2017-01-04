@@ -45,7 +45,8 @@ validate(contract, data)
 
 ```javascript
 contract = [
-  {key: 'age',
+  {
+    key: 'age',
     promises: [
       {
         rule: after,
@@ -63,7 +64,8 @@ The rule's arg should return a string compatible with Date.parse()
 
 ```javascript
 contract = [
-  {key: 'age',
+  {
+    key: 'age',
     promises: [{
       rule: before,
       arg: () => '3 Jan 2016'
@@ -98,7 +100,8 @@ Validate that the supplied value is not contained within the argument black list
 
 ```javascript
 contract = [
-  {key: 'sales',
+  {
+    key: 'sales',
     promises: [
       {
         rule: greaterthan,
@@ -114,7 +117,8 @@ Tests a value is greater than the supplied argument
 
 ```javascript
 contract2 = [
-  {key: 'age',
+  {
+    key: 'age',
     promises: [
       {
         rule: int,
