@@ -50,7 +50,7 @@ describe('validates', () => {
         .catch(error => done());
     });
 
-    it('pass the validation', () => {
+    it('passes the validation', () => {
       expect(res).to.equal(true);
     });
   });
@@ -67,7 +67,6 @@ describe('validates', () => {
         })
         .catch(error => {
           failed = error;
-          console.log('.....failed', failed);
           done();
         });
       });

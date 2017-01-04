@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import validate, {after} from '../dist/index';
+import validate, {equals} from '../dist/index';
 
 describe('validates', () => {
   let res, failed,
@@ -8,16 +8,16 @@ describe('validates', () => {
         key: 'age',
         promises: [
           {
-            rule: after,
-            arg: () => '3 Jan 2016'
+            rule: equals,
+            arg: () => '17'
           }
         ],
-        msg: (value, row, arg) => value + ' not after 3 Jan 2016'
+        msg: (value, row, arg) => value + ' is not 17'
       }];
-  describe('isafter success', done => {
+  describe('equals success', done => {
     beforeEach(done => {
       let data = {
-        age: '4 Jan 2016'
+        age: '17'
       };
 
       validate(contract, data)
@@ -33,10 +33,10 @@ describe('validates', () => {
     });
   });
 
-  describe('isafter failed', done => {
+  describe('equals failed', done => {
     beforeEach(done => {
       let data = {
-        age: '1 Jan 2016'
+        age: '16'
       };
 
       validate(contract, data)
@@ -53,7 +53,7 @@ describe('validates', () => {
       expect(failed).to.be.an('object');
       expect(failed).to.have.key('age');
       expect(failed.age).to.be.an('array');
-      expect(failed.age[0]).to.equal('1 Jan 2016 not after 3 Jan 2016');
+      expect(failed.age[0]).to.equal('16 is not 17');
     });
   });
 });

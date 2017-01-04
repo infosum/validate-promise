@@ -94,7 +94,23 @@ contract = [
   }];
 ```
 
-Validate that the supplied value is not contained within the argument black list.
+### Equals
+
+```javascript
+contract = [
+  {
+    key: 'age',
+    promises: [
+      {
+        rule: equals,
+        arg: () => '17'
+      }
+    ],
+    msg: (value, row, arg) => value + ' is not 17'
+  }];
+```
+
+Validate that the supplied value is is loosely equal to the argument.
 
 ### Greaterthan
 

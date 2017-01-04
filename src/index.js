@@ -3,6 +3,7 @@
 import after from './rules/after';
 import before from './rules/before';
 import blacklist from './rules/blacklist';
+import equals from './rules/equals';
 import greaterthan from './rules/greaterthan';
 import int from './rules/int';
 import lessthan from './rules/lessthan';
@@ -81,6 +82,7 @@ export {
   after,
   before,
   blacklist,
+  equals,
   greaterthan,
   int,
   lessthan,

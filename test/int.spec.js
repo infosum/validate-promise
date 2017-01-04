@@ -34,7 +34,7 @@ describe('validates', () => {
         .catch(error => done());
     });
 
-    it('pass the validation', () => {
+    it('passes the validation', () => {
       expect(res).to.equal(true);
     });
   });
@@ -53,7 +53,7 @@ describe('validates', () => {
         .catch(error => done());
     });
 
-    it('pass the validation', () => {
+    it('passes the validation', () => {
       expect(resMin).to.equal(true);
     });
   });
@@ -74,7 +74,7 @@ describe('validates', () => {
         });
     });
 
-    it('fail the validation', () => {
+    it('fails the validation', () => {
       expect(failed).to.be.an('object');
       expect(failed).to.have.key('age');
       expect(failed.age).to.be.an('array');
@@ -100,7 +100,7 @@ describe('validates', () => {
         });
     });
 
-    it('fail the validation', () => {
+    it('fails the validation', () => {
       expect(failedMin).to.be.an('object');
       expect(failedMin).to.have.key('age');
       expect(failedMin.age).to.be.an('array');
