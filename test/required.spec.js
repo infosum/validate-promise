@@ -6,7 +6,11 @@ describe('validates', () => {
     contract = [
       {
         key: 'name',
-        promises: [required],
+        promises: [
+          {
+            rule: required,
+          }
+        ],
         msg: () => 'Name is required'
       }
     ];
@@ -15,7 +19,9 @@ describe('validates', () => {
       let contract = [
         {
           key: 'name',
-          promises: [required],
+          promises: [{
+            rule: required
+          }],
           msg: () => 'Name is required'
         }
         ],

@@ -5,9 +5,13 @@ describe('validates', () => {
   let res, failed,
     contract = [
       {key: 'age',
-        promises: [lessthan],
-        msg: (value, row, arg) => 'age less than ' + arg,
-        arg: 18
+        promises: [
+          {
+            rule: lessthan,
+            arg: () => 18
+          }
+        ],
+        msg: (value, row, arg) => 'age less than 18'
       }];
   describe('less than success', done => {
     beforeEach(done => {

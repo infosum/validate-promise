@@ -5,9 +5,12 @@ describe('validates', () => {
   let res, failed,
     contract = [
       {key: 'age',
-        promises: [before],
-        msg: (value, row, arg) => value + ' not before ' + arg,
-        arg: '3 Jan 2016'
+        promises: [{
+          rule: before,
+          arg: () => '3 Jan 2016'
+        }
+        ],
+        msg: (value, row, arg) => value + ' not before 3 Jan 2016'
       }];
   describe('isbefore than success', done => {
     beforeEach(done => {

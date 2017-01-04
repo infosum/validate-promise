@@ -5,15 +5,20 @@ describe('validates', () => {
   let res, resMin, failed, failedMin,
     contract = [
       {key: 'age',
-        promises: [int],
-        msg: (value, row, arg) => value + ' not an int',
-        arg: {}
+        promises: [{
+          rule: int
+        }],
+        msg: (value, row, arg) => value + ' not an int'
       }],
     contract2 = [
       {key: 'age',
-        promises: [int],
-        msg: (value, row, arg) => value + ' not an int',
-        arg: {min: 18, max: 55}
+        promises: [
+          {
+            rule: int,
+            arg: () => ({min: 18, max: 55})
+          }
+        ],
+        msg: (value, row, arg) => value + ' not an int'
       }];
   describe('int success', done => {
     beforeEach(done => {

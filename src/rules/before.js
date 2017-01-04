@@ -1,5 +1,7 @@
 // @flow
 
+type ArgFunc = (value: string, row: Object) => string;
+
 /**
  * Check if a value is before a given date
  * @param {String} value To validate
@@ -8,8 +10,11 @@
  * @param {*} arg Validation arguement
  * @return {Promise} .
  */
-export default (value: string, row: Object, msg: Function, arg: string) : Promise<?string> => {
+export default (value: string, row: Object, msg: Function, arg: string|Function) : Promise<?string> => {
   let test: number = Date.parse(value);
+  if (typeof arg === 'function') {
+    arg = arg(value, row);
+  }
   let compare: number = Date.parse(arg);
 
   if (test < compare) {

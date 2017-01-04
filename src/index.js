@@ -47,10 +47,12 @@ const hashSettled = (promises: Object): Promise<Object[]> => {
     contract.forEach((validation: Validation) => {
       let name = validation.key,
         value = data[name],
-        arg = validation.arg || null;
+        arg = validation.arg || [];
       validation.promises.forEach((p: ValidationPromise, i: number) => {
-        let key = name + '.' + i;
-        promises[key] = p(value, data, validation.msg, arg);
+        let key = name + '.' + i,
+          thisArg = p.arg === undefined ? null : p.arg;
+
+        promises[key] = p.rule(value, data, validation.msg, thisArg);
       });
     });
 

@@ -1,7 +1,7 @@
 export function ValidationPromise(
   value: string,
   row: Object,
-  arg: any
+  arg: any[]
 ): Promise<?string>;
 
 export type Validation = {

@@ -5,9 +5,13 @@ describe('validates', () => {
   let res, failed,
     contract = [
       {key: 'age',
-        promises: [blacklist],
-        msg: (value, row, arg) => value + ' not allowed',
-        arg: ['17']
+        promises: [
+          {
+            rule: blacklist,
+            arg: () => ['17']
+          }
+        ],
+        msg: (value, row, arg) => value + ' not allowed'
       }];
   describe('blacklist success', done => {
     beforeEach(done => {
