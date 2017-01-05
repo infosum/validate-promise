@@ -1,7 +1,7 @@
 {
   "name": "validate-promise",
   "version": "2.0.5",
-  "description": "Promised based validaation library",
+  "description": "Promised based validation library",
   "main": "dist/index.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
