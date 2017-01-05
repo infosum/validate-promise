@@ -1,4 +1,4 @@
-# validation-promise
+# validate-promise
 Promised based validation library
 
 ## Installation
