@@ -68,7 +68,7 @@ const hashSettled = (promises: Object): Promise<Object[]> => {
             if (!ret[k]) {
               ret[k] = [];
             }
-            if (ret[k].indexOf(err.reason) !== -1) {
+            if (ret[k].indexOf(err.reason) === -1) {
               ret[k].push(err.reason);
             }
           });

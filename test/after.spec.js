@@ -50,6 +50,7 @@ describe('validates', () => {
     });
 
     it('fails the validation', () => {
+      console.log('failed = ', failed);
       expect(failed).to.be.an('object');
       expect(failed).to.have.key('age');
       expect(failed.age).to.be.an('array');

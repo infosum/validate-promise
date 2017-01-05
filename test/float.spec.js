@@ -102,7 +102,7 @@ describe('validates', () => {
       expect(failedMin).to.be.an('object');
       expect(failedMin).to.have.key('age');
       expect(failedMin.age).to.be.an('array');
-      expect(failedMin.age[0]).to.equal('7 not an float');
+      expect(failedMin.age[0]).to.equal('7 not a float');
     });
   });
 });

@@ -66,7 +66,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.whitelist = exports.required = exports.lessthan = exports.int = exports.greaterthan = exports.equals = exports.blacklist = exports.before = exports.after = undefined;
+	exports.whitelist = exports.required = exports.lessthan = exports.int = exports.greaterthan = exports.float = exports.equals = exports.blacklist = exports.before = exports.after = undefined;
 
 	var _after = __webpack_require__(2);
 
@@ -84,23 +84,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _equals2 = _interopRequireDefault(_equals);
 
-	var _greaterthan = __webpack_require__(6);
+	var _float = __webpack_require__(6);
+
+	var _float2 = _interopRequireDefault(_float);
+
+	var _greaterthan = __webpack_require__(7);
 
 	var _greaterthan2 = _interopRequireDefault(_greaterthan);
 
-	var _int = __webpack_require__(7);
+	var _int = __webpack_require__(8);
 
 	var _int2 = _interopRequireDefault(_int);
 
-	var _lessthan = __webpack_require__(8);
+	var _lessthan = __webpack_require__(9);
 
 	var _lessthan2 = _interopRequireDefault(_lessthan);
 
-	var _required = __webpack_require__(9);
+	var _required = __webpack_require__(10);
 
 	var _required2 = _interopRequireDefault(_required);
 
-	var _whitelist = __webpack_require__(10);
+	var _whitelist = __webpack_require__(11);
 
 	var _whitelist2 = _interopRequireDefault(_whitelist);
 
@@ -164,8 +168,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (!ret[k]) {
 	          ret[k] = [];
 	        }
-	        ret[k].push(err.reason);
+	        if (ret[k].indexOf(err.reason) === -1) {
+	          ret[k].push(err.reason);
+	        }
 	      });
+
 	      if (errors.length === 0) {
 	        resolve(true);
 	      }
@@ -179,6 +186,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.before = _before2.default;
 	exports.blacklist = _blacklist2.default;
 	exports.equals = _equals2.default;
+	exports.float = _float2.default;
 	exports.greaterthan = _greaterthan2.default;
 	exports.int = _int2.default;
 	exports.lessthan = _lessthan2.default;
@@ -314,6 +322,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
+	/**
+	 * Check if a value can be coerced to an integer
+	 * @param {String} value To validate
+	 * @param {Object} row Form data
+	 * @param {Function} msg Error message function
+	 * @param {*} arg Validation arguement
+	 * @return {Promise} .
+	 */
+	exports.default = function (value, row, msg, arg) {
+	  if (typeof arg === 'function') {
+	    arg = arg(value, row);
+	  }
+
+	  var float = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/;
+
+	  if (arg !== null) {
+	    if (arg.min !== undefined && parseInt(value, 10) < parseInt(arg.min, 10)) {
+	      return Promise.reject(msg(value, row, arg));
+	    }
+
+	    if (arg.max && parseInt(value, 10) > parseInt(arg.max, 10)) {
+	      return Promise.reject(msg(value, row, arg));
+	    }
+	  }
+
+	  if (float.test(value)) {
+	    return Promise.resolve();
+	  }
+	  return Promise.reject(msg(value, row, arg));
+	};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
@@ -341,7 +390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -382,7 +431,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -410,17 +459,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value = compare.value;
 	    compare = compare.compare;
 	  }
-	  console.log('less than,', parseInt(value, 10), ' < ', parseInt(compare, 10));
+
 	  if (parseInt(value, 10) < parseInt(compare, 10)) {
-	    console.log('----resolve');
 	    return Promise.resolve();
 	  }
-	  console.log('-----reject');
+
 	  return Promise.reject(msg(value, row, arg));
 	};
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -447,7 +495,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
