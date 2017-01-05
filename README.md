@@ -112,6 +112,26 @@ contract = [
 
 Validate that the supplied value is is loosely equal to the argument.
 
+### Float
+
+```javascript
+import {float} from 'validate-promise';
+
+contract = [
+  {
+    key: 'age',
+    promises: [
+      {
+        rule: float,
+        arg: () => ({min: 18, max: 55})
+      }
+    ],
+    msg: (value, row, arg) => value + ' not a float'
+  }]
+```
+Tests if value can be coerced to a float. Optionally you can supply a
+min/max object from the arg function. If supplied the float must fall within this range to be valid.
+
 ### Greaterthan
 
 ```javascript

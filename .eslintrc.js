@@ -78,7 +78,12 @@ module.exports = {
       "always"
     ],
     "flowtype/use-flow-type": 1,
-    "flowtype/valid-syntax": 1
+    "flowtype/valid-syntax": 1,
+    "flowtype/no-weak-types": [2, {
+        "any": false,
+        "Object": false,
+        "Function": false
+    }]
   }
 
 }

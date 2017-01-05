@@ -1,11 +1,11 @@
 // @flow
 
-type IntBoundsType = {
+type FloatBoundsType = {
   min?: number,
   max?: number
 };
 
-type IntBoundFuncType = (value: string, row: Object) => IntBoundsType;
+type FloatBoundFuncType = (value: string, row: Object) => FloatBoundsType;
 
 /**
  * Check if a value can be coerced to an integer
@@ -16,12 +16,13 @@ type IntBoundFuncType = (value: string, row: Object) => IntBoundsType;
  * @return {Promise} .
  */
 export default (value: string, row: Object,
-  msg: Function, arg: IntBoundsType | IntBoundFuncType): Promise<?string> => {
+  msg: Function,
+  arg: FloatBoundsType | FloatBoundFuncType): Promise<?string> => {
   if (typeof arg === 'function') {
     arg = arg(value, row);
   }
 
-  const int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/;
+  const float = /^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/;
 
   if (arg !== null) {
     if ((arg.min !== undefined &&
@@ -34,7 +35,7 @@ export default (value: string, row: Object,
     }
   }
 
-  if (int.test(value)) {
+  if (float.test(value)) {
     return Promise.resolve();
   }
   return Promise.reject(msg(value, row, arg));

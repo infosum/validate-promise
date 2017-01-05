@@ -1,29 +1,29 @@
 import {expect} from 'chai';
-import validate, {int} from '../dist/index';
+import validate, {float} from '../dist/index';
 
 describe('validates', () => {
   let res, resMin, failed, failedMin,
     contract = [
       {key: 'age',
         promises: [{
-          rule: int
+          rule: float
         }],
-        msg: (value, row, arg) => value + ' not an int'
+        msg: (value, row, arg) => value + ' not a float'
       }],
     contract2 = [
       {key: 'age',
         promises: [
           {
-            rule: int,
+            rule: float,
             arg: () => ({min: 18, max: 55})
           }
         ],
-        msg: (value, row, arg) => value + ' not an int'
+        msg: (value, row, arg) => value + ' not a float'
       }];
-  describe('int success', done => {
+  describe('float success', done => {
     beforeEach(done => {
       let data = {
-        age: '11'
+        age: '11.1'
       };
 
       validate(contract, data)
@@ -39,7 +39,7 @@ describe('validates', () => {
     });
   });
 
-  describe('int success passes min text', done => {
+  describe('float success passes min text', done => {
     beforeEach(done => {
       let data = {
         age: '19'
@@ -58,7 +58,7 @@ describe('validates', () => {
     });
   });
 
-  describe('int failed', done => {
+  describe('float failed', done => {
     beforeEach(done => {
       let data = {
         age: 'abc'
@@ -78,11 +78,11 @@ describe('validates', () => {
       expect(failed).to.be.an('object');
       expect(failed).to.have.key('age');
       expect(failed.age).to.be.an('array');
-      expect(failed.age[0]).to.equal('abc not an int');
+      expect(failed.age[0]).to.equal('abc not a float');
     });
   });
 
-  describe('int min test failed', done => {
+  describe('float min test failed', done => {
     beforeEach(done => {
       let data = {
         age: '7'
@@ -102,7 +102,7 @@ describe('validates', () => {
       expect(failedMin).to.be.an('object');
       expect(failedMin).to.have.key('age');
       expect(failedMin.age).to.be.an('array');
-      expect(failedMin.age[0]).to.equal('7 not an int');
+      expect(failedMin.age[0]).to.equal('7 not an float');
     });
   });
 });
