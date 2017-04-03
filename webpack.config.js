@@ -33,6 +33,10 @@ module.exports = {
   module: {
     loaders: loaders
   },
+  node: {
+    dns: 'mock',
+    net: 'mock'
+  },
   plugins: plugins,
   watchOptions: {
     poll: true

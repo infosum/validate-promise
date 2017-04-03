@@ -2,7 +2,7 @@
 
 type ArgFunc = (value: string, row: Object) => number;
 type CompareSet = {
-  value: string;
+  value: string,
   compare: string
 };
 
@@ -14,7 +14,12 @@ type CompareSet = {
  * @param {*} arg Validation arguement
  * @return {Promise} .
  */
-export default (value: string, row: Object, msg: Function, arg: number|ArgFunc|CompareSet) : Promise<?string> => {
+export default (
+    value: string,
+    row: Object,
+    msg: Function,
+    arg: number | ArgFunc | CompareSet
+  ): Promise<?string> => {
   let compare = arg;
   if (typeof arg === 'function') {
     compare = arg(value, row);

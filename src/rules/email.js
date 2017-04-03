@@ -1,8 +1,10 @@
 // @flow
+import Isemail from 'isemail';
 
 type ArgFunc = (value: string, row: Object) => string;
+
 /**
- * Check if a value is after a given date
+ * Check if a value is an email
  * @param {String} value To validate
  * @param {Object} row Form data
  * @param {Function} msg Error message function
@@ -10,19 +12,13 @@ type ArgFunc = (value: string, row: Object) => string;
  * @return {Promise} .
  */
 export default (
-    value: string,
-    row: Object,
-    msg: Function,
-    arg: string | ArgFunc
+  value: string,
+  row: Object,
+  msg: Function,
+  arg: string | ArgFunc
   ): Promise<?string> => {
-  let test: number = Date.parse(value);
-  if (typeof arg === 'function') {
-    arg = arg(value, row);
-  }
-  let compare: number = Date.parse(arg);
-
-  if (test > compare) {
+  if (Isemail.validate(value)) {
     return Promise.resolve();
-  }
+  };
   return Promise.reject(msg(value, row, arg));
 };

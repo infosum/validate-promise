@@ -1,23 +1,22 @@
 import {expect} from 'chai';
-import validate, {after} from '../dist/index';
+import validate, {email} from '../dist/index';
 
 describe('validates', () => {
   let res, failed,
     contract = [
       {
-        key: 'age',
+        key: 'email',
         promises: [
           {
-            rule: after,
-            arg: () => '3 Jan 2016'
+            rule: email
           }
         ],
-        msg: (value, row, arg) => value + ' not after 3 Jan 2016'
+        msg: (value, row, arg) => value + ' is not an email'
       }];
-  describe('isafter success', done => {
+  describe('email success?', done => {
     beforeEach(done => {
       let data = {
-        age: '4 Jan 2016'
+        email: 'test@test.com'
       };
 
       validate(contract, data)
@@ -33,10 +32,10 @@ describe('validates', () => {
     });
   });
 
-  describe('isafter failed', done => {
+  describe('email failed', done => {
     beforeEach(done => {
       let data = {
-        age: '1 Jan 2016'
+        email: 'dooo'
       };
 
       validate(contract, data)
@@ -51,9 +50,9 @@ describe('validates', () => {
 
     it('fails the validation', () => {
       expect(failed).to.be.an('object');
-      expect(failed).to.have.key('age');
-      expect(failed.age).to.be.an('array');
-      expect(failed.age[0]).to.equal('1 Jan 2016 not after 3 Jan 2016');
+      expect(failed).to.have.key('email');
+      expect(failed.email).to.be.an('array');
+      expect(failed.email[0]).to.equal('dooo is not an email');
     });
   });
 });

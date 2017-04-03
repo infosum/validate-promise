@@ -1,9 +1,10 @@
 // @flow
-
 import after from './rules/after';
 import before from './rules/before';
 import blacklist from './rules/blacklist';
+import email from './rules/email';
 import equals from './rules/equals';
+import equalto from './rules/equalto';
 import float from './rules/float';
 import greaterthan from './rules/greaterthan';
 import int from './rules/int';
@@ -87,7 +88,9 @@ export {
   after,
   before,
   blacklist,
+  email,
   equals,
+  equalto,
   float,
   greaterthan,
   int,

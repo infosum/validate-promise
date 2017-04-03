@@ -1,8 +1,9 @@
 // @flow
 
-type ArgFunc = (value: string, row: Object) => string;
+type ArgFunc = (value: string, row: Object) => any;
+
 /**
- * Check if a value is after a given date
+ * Check if a value matches another fields value
  * @param {String} value To validate
  * @param {Object} row Form data
  * @param {Function} msg Error message function
@@ -14,14 +15,11 @@ export default (
     row: Object,
     msg: Function,
     arg: string | ArgFunc
-  ): Promise<?string> => {
-  let test: number = Date.parse(value);
+  ) : Promise<?string> => {
   if (typeof arg === 'function') {
     arg = arg(value, row);
   }
-  let compare: number = Date.parse(arg);
-
-  if (test > compare) {
+  if (row[arg] && row[arg] === value) {
     return Promise.resolve();
   }
   return Promise.reject(msg(value, row, arg));
