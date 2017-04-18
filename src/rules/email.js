@@ -1,5 +1,5 @@
 // @flow
-import Isemail from 'isemail';
+import IsEmail from 'is-email';
 
 type ArgFunc = (value: string, row: Object) => string;
 
@@ -17,7 +17,7 @@ export default (
   msg: Function,
   arg: string | ArgFunc
   ): Promise<?string> => {
-  if (Isemail.validate(value)) {
+  if (IsEmail.validate(value)) {
     return Promise.resolve();
   };
   return Promise.reject(msg(value, row, arg));

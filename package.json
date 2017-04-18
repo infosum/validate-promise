@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "install": "^0.8.8",
-    "isemail": "^2.2.1",
+    "is-email": "^1.0.0",
     "npm": "^4.4.4"
   }
 }
