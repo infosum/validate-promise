@@ -15,7 +15,7 @@ export default (
     row: Object,
     msg: Function,
     arg: string | ArgFunc
-  ) : Promise<?string> => {
+  ): Promise<?string> => {
   if (typeof arg === 'function') {
     arg = arg(value, row);
   }

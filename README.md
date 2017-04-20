@@ -112,6 +112,23 @@ contract = [
 
 Validate that the supplied value is is loosely equal to the argument.
 
+### Equal to
+
+```javascript
+contract = [
+  {
+    key: 'age',
+    promises: [
+      {
+        rule: equalto,
+        arg: () => 'other_age'
+      }
+    ],
+    msg: (value, row, arg) => value + ' is not the same as other_age'
+  }];
+```
+Validate that the supplied value matches the data's key value (supplied by the arg function)
+
 ### Float
 
 ```javascript
