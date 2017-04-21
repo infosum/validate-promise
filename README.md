@@ -52,7 +52,7 @@ var contract = [
     promises: [{
       rule: int,
       arg: (value: any, row: Object) => 5,
-      msg: (value: any, row: Object, arg) => value + ' is REALLY NOT AN INT'
+      msg: (value: any, row: Object, arg) => value + ' IS REALLY NOT AN INT'
     }], // array of validations
     msg: (value: any, row: Object, arg) => value + ' not an int',
 
