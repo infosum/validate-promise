@@ -19,9 +19,9 @@ var contract = [
     key: 'age', // index to validate in data
     promises: [{
       rule: int,
-      arg: (value, row) => 5
+      arg: (value: any, row: Object) => 5
     }], // array of validations
-    msg: (value, row, arg) => value + ' not an int',
+    msg: (value: any, row: Object, arg) => value + ' not an int',
 
   }
 ];
@@ -34,7 +34,7 @@ validate(contract, data)
   .then(() => {
     // The validations have passed...
   })
-  .catch(error => {
+  .catch((error: : string[]) => {
     // Validations failed - error is an object keyed on data keys, and containing an array of error messages.
   });
 ```
@@ -51,10 +51,10 @@ var contract = [
     key: 'age', // index to validate in data
     promises: [{
       rule: int,
-      arg: (value, row) => 5,
-      msg: (value, row, arg) => value + ' is REALLY NOT AN INT'
+      arg: (value: any, row: Object) => 5,
+      msg: (value: any, row: Object, arg) => value + ' is REALLY NOT AN INT'
     }], // array of validations
-    msg: (value, row, arg) => value + ' not an int',
+    msg: (value: any, row: Object, arg) => value + ' not an int',
 
   }
 ];
@@ -67,7 +67,7 @@ validate(contract, data)
   .then(() => {
     // The validations have passed...
   })
-  .catch(error: string[] => {
+  .catch((error: string[]) => {
     // Will be :
     // ['CHICKEN IS REALLY NOT AN INT']
     // Validations failed - error is an object keyed on data keys, and containing an array of error messages.
@@ -85,10 +85,10 @@ contract = [
     promises: [
       {
         rule: after,
-        arg: () => '3 Jan 2016'
+        arg: (value: any, row: Object) => '3 Jan 2016'
       }
     ],
-    msg: (value, row, arg) => value + ' not after 3 Jan 2016'
+    msg: (value: any, row: Object, arg) => value + ' not after 3 Jan 2016'
   }];
 
 ```
@@ -103,10 +103,10 @@ contract = [
     key: 'age',
     promises: [{
       rule: before,
-      arg: () => '3 Jan 2016'
+      arg: (value: any, row: Object) => '3 Jan 2016'
     }
     ],
-    msg: (value, row, arg) => value + ' not before 3 Jan 2016'
+    msg: (value: any, row: Object, arg) => value + ' not before 3 Jan 2016'
   }];
 ```
 
@@ -122,10 +122,10 @@ contract = [
     promises: [
       {
         rule: blacklist,
-        arg: () => ['17', 'abc', 'foo']
+        arg: (value: any, row: Object) => ['17', 'abc', 'foo']
       }
     ],
-    msg: (value, row, arg) => value + ' not allowed'
+    msg: (value: any, row: Object, arg) => value + ' not allowed'
   }];
 ```
 
@@ -138,10 +138,10 @@ contract = [
     promises: [
       {
         rule: equals,
-        arg: () => '17'
+        arg: (value: any, row: Object) => '17'
       }
     ],
-    msg: (value, row, arg) => value + ' is not 17'
+    msg: (value: any, row: Object, arg) => value + ' is not 17'
   }];
 ```
 
@@ -156,10 +156,10 @@ contract = [
     promises: [
       {
         rule: equalto,
-        arg: () => 'other_age'
+        arg: (value: any, row: Object) => 'other_age'
       }
     ],
-    msg: (value, row, arg) => value + ' is not the same as other_age'
+    msg: (value: any, row: Object, arg) => value + ' is not the same as other_age'
   }];
 ```
 Validate that the supplied value matches the data's key value (supplied by the arg function)
@@ -175,10 +175,10 @@ contract = [
     promises: [
       {
         rule: float,
-        arg: () => ({min: 18, max: 55})
+        arg: (value: any, row: Object) => ({min: 18, max: 55})
       }
     ],
-    msg: (value, row, arg) => value + ' not a float'
+    msg: (value: any, row: Object, arg) => value + ' not a float'
   }]
 ```
 Tests if value can be coerced to a float. Optionally you can supply a
@@ -193,10 +193,10 @@ contract = [
     promises: [
       {
         rule: greaterthan,
-        arg: () => 0
+        arg: (value: any, row: Object) => 0
       }
     ],
-    msg: (value, row, arg) => 'Sales must be greater than 0'
+    msg: (value: any, row: Object, arg) => 'Sales must be greater than 0'
   }]
 ```
 Tests a value is greater than the supplied argument.
@@ -209,10 +209,10 @@ contract = [
     promises: [
       {
         rule: greaterthan,
-        arg: (value, row) => ({compare: 0, value: 10})
+        arg: (value: any, row: Object) => ({compare: 0, value: 10})
       }
     ],
-    msg: (value, row, arg) => 'Sales must be greater than 0'
+    msg: (value: any, row: Object, arg) => 'Sales must be greater than 0'
   }]
 ```
 
@@ -227,10 +227,10 @@ contract2 = [
     promises: [
       {
         rule: int,
-        arg: () => ({min: 18, max: 55})
+        arg: (value: any, row: Object) => ({min: 18, max: 55})
       }
     ],
-    msg: (value, row, arg) => value + ' not an int'
+    msg: (value: any, row: Object, arg) => value + ' not an int'
   }]
 ```
 Tests if value can be coerced to an integer. Optionally you can supply a
@@ -245,10 +245,10 @@ contract = [
     promises: [
       {
         rule: lessthan,
-        arg: () => 18
+        arg: (value: any, row: Object) => 18
       }
     ],
-    msg: (value, row, arg) => 'age less than 18'
+    msg: (value: any, row: Object, arg) => 'age less than 18'
   }];
 ```
 Test a value is less than the supplied argument.
@@ -261,10 +261,10 @@ contract = [
     promises: [
       {
         rule: lessthan,
-        arg: (value, row) => ({compare: 0, value: 10})
+        arg: (value: any, row: Object) => ({compare: 0, value: 10})
       }
     ],
-    msg: (value, row, arg) => 'Age must be greater than 0'
+    msg: (value: any, row: Object, arg) => 'Age must be greater than 0'
   }]
 ```
 
@@ -281,7 +281,7 @@ contract = [
         rule: required,
       }
     ],
-    msg: () => 'Name is required'
+    msg: (value: any, row: Object, arg) => 'Name is required'
   }
 ];
 ```
@@ -295,10 +295,10 @@ contract = [
     promises: [
       {
         rule: whitelist,
-        arg: () => ['17', 'abc', 'foo']
+        arg: (value: any, row: Object) => ['17', 'abc', 'foo']
       }
     ],
-    msg: (value, row, arg) => value + ' not allowed'
+    msg: (value: any, row: Object, arg) => value + ' not allowed'
   }];
 ```
 
