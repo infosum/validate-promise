@@ -159,17 +159,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value = data[name];
 	    validation.promises.forEach(function (p, i) {
 	      var key = name + '.' + cx + '.' + i,
-	          thisArg = p.arg === undefined ? null : p.arg;
+	          thisArg = p.arg === undefined ? null : p.arg,
+	          validationMessage = p.msg || validation.msg;
 
-	      promises[key] = p.rule(value, data, validation.msg, thisArg);
+	      promises[key] = p.rule(value, data, validationMessage, thisArg);
 	    });
 	  });
 
 	  return new Promise(function (resolve, reject) {
 	    hashSettled(promises).then(function (res) {
-	      var errors = res.filter(function (r) {
+	      var rejectedErrors = function rejectedErrors(r) {
 	        return r.state === 'rejected';
-	      }),
+	      };
+	      var errors = res.filter(rejectedErrors),
 	          ret = {};
 	      errors.forEach(function (err) {
 	        var k = err.key.split('.').shift();
@@ -318,7 +320,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Promise} .
 	 */
 	exports.default = function (value, row, msg, arg) {
-	  if (_isEmail2.default.validate(value)) {
+	  if ((0, _isEmail2.default)(value)) {
 	    return Promise.resolve();
 	  };
 	  return Promise.reject(msg(value, row, arg));

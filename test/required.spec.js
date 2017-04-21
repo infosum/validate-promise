@@ -8,7 +8,7 @@ describe('validates', () => {
         key: 'name',
         promises: [
           {
-            rule: required,
+            rule: required
           }
         ],
         msg: () => 'Name is required'
@@ -25,10 +25,20 @@ describe('validates', () => {
         ],
         msg: () => 'Should pass'
       }
+    ],
+    contractThree = [
+      {
+        key: 'name',
+        promises: [{
+          rule: required,
+          msg: () => 'Custom error message'
+        }],
+        msg: () => 'Name is required'
+      }
     ];
 
-  describe('required success', done => {
-    beforeEach(done => {
+  describe('required success', (done) => {
+    beforeEach((done) => {
       let contract = [
         {
           key: 'name',
@@ -36,18 +46,17 @@ describe('validates', () => {
             rule: required
           }],
           msg: () => 'Name is required'
-        }
-        ],
+        }],
         data = {
           name: 'Rob'
         };
 
       validate(contract, data)
-        .then(data => {
+        .then((data) => {
           res = data;
           done();
         })
-        .catch(error => done());
+        .catch((error) => done());
     });
 
     it('passes the validation', () => {
@@ -55,41 +64,65 @@ describe('validates', () => {
     });
   });
 
-  describe('required - one fail and one success', done => {
-      beforeEach(done => {
-        let data = {
-          name: ''
-        }
+  describe('required - one fail and one success', (done) => {
+    beforeEach((done) => {
+      let data = {
+        name: ''
+      };
 
-        validate(contractTwo, data)
-        .then(data => {
+      validate(contractTwo, data)
+        .then((data) => {
           done();
         })
-        .catch(error => {
+        .catch((error) => {
           failed = error;
           done();
         });
-      });
+    });
 
-      it('fails the validation', () => {
-        expect(failed).to.be.an('object');
-        expect(failed).to.have.key('name');
-        expect(failed.name).to.be.an('array');
-        expect(failed.name[0]).to.equal('Name is required');
-      });
-  })
+    it('fails the validation', () => {
+      expect(failed).to.be.an('object');
+      expect(failed).to.have.key('name');
+      expect(failed.name).to.be.an('array');
+      expect(failed.name[0]).to.equal('Name is required');
+    });
+  });
 
-  describe('required failed', done => {
-    beforeEach(done => {
+  describe('custom error message', () => {
+    beforeEach((done) => {
+      let data = {
+        name: ''
+      };
+
+      validate(contractThree, data)
+        .then((data) => {
+          done();
+        })
+        .catch((error) => {
+          failed = error;
+          done();
+        });
+    });
+
+    it('fails the validation', () => {
+      expect(failed).to.be.an('object');
+      expect(failed).to.have.key('name');
+      expect(failed.name).to.be.an('array');
+      expect(failed.name[0]).to.equal('Custom error message');
+    });
+  });
+
+  describe('required failed', (done) => {
+    beforeEach((done) => {
       let data = {
         name: ''
       };
 
       validate(contract, data)
-        .then(data => {
+        .then((data) => {
           done();
         })
-        .catch(error => {
+        .catch((error) => {
           failed = error;
           done();
         });

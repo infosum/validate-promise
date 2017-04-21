@@ -13,18 +13,18 @@ describe('validates', () => {
         ],
         msg: (value, row, arg) => value + ' is not an email'
       }];
-  describe('email success?', done => {
-    beforeEach(done => {
+  describe('email success?', (done) => {
+    beforeEach((done) => {
       let data = {
         email: 'test@test.com'
       };
 
       validate(contract, data)
-        .then(data => {
+        .then((data) => {
           res = data;
           done();
         })
-        .catch(error => done());
+        .catch((error) => done());
     });
 
     it('passes the validation', () => {
@@ -32,17 +32,17 @@ describe('validates', () => {
     });
   });
 
-  describe('email failed', done => {
-    beforeEach(done => {
+  describe('email failed', (done) => {
+    beforeEach((done) => {
       let data = {
         email: 'dooo'
       };
 
       validate(contract, data)
-        .then(data => {
+        .then((data) => {
           done();
         })
-        .catch(error => {
+        .catch((error) => {
           failed = error;
           done();
         });

@@ -53,16 +53,18 @@ const hashSettled = (promises: Object): Promise<Object[]> => {
         value = data[name];
       validation.promises.forEach((p: ValidationPromise, i: number) => {
         let key = name + '.' + cx + '.' + i,
-          thisArg = p.arg === undefined ? null : p.arg;
+          thisArg = p.arg === undefined ? null : p.arg,
+          validationMessage = p.msg || validation.msg;
 
-        promises[key] = p.rule(value, data, validation.msg, thisArg);
+        promises[key] = p.rule(value, data, validationMessage, thisArg);
       });
     });
 
     return new Promise((resolve: Function, reject: Function) => {
       hashSettled(promises)
         .then((res: Array<Object>) => {
-          let errors = res.filter((r: ValidationResponse): boolean => r.state === 'rejected'),
+          const rejectedErrors = (r: ValidationResponse): boolean => r.state === 'rejected';
+          let errors = res.filter(rejectedErrors),
             ret = {};
           errors.forEach((err: ValidationResponse) => {
             let k: string = err.key.split('.').shift();

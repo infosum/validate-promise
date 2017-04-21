@@ -39,6 +39,41 @@ validate(contract, data)
   });
 ```
 
+# Custom error messages per validation
+
+Each validation promise object can have a custom msg function. If supplied this is used in preference to the default msg() function
+
+```javascript
+import validate, {int} from 'validation-promise';
+
+var contract = [
+  {
+    key: 'age', // index to validate in data
+    promises: [{
+      rule: int,
+      arg: (value, row) => 5,
+      msg: (value, row, arg) => value + ' is REALLY NOT AN INT'
+    }], // array of validations
+    msg: (value, row, arg) => value + ' not an int',
+
+  }
+];
+
+var data = {
+  age: 'CHICKEN'
+};
+
+validate(contract, data)
+  .then(() => {
+    // The validations have passed...
+  })
+  .catch(error: string[] => {
+    // Will be :
+    // ['CHICKEN IS REALLY NOT AN INT']
+    // Validations failed - error is an object keyed on data keys, and containing an array of error messages.
+  });
+
+```
 ## Validations
 
 ### After
