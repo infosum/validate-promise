@@ -12,7 +12,7 @@ npm install validate-promise
 Validates an object against a specified validation contract
 
 ```javascript
-import validate, {int} from 'validation-promise';
+import validate, {int} from 'validate-promise';
 
 var contract = [
   {
@@ -34,7 +34,7 @@ validate(contract, data)
   .then(() => {
     // The validations have passed...
   })
-  .catch((error: : string[]) => {
+  .catch((error: string[]) => {
     // Validations failed - error is an object keyed on data keys, and containing an array of error messages.
   });
 ```
