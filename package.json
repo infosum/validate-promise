@@ -6,7 +6,9 @@
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
-    "test": "istanbul cover _mocha --recursive -x '**/*.spec.js' -x '**/config/**' -x '**/node_modules/**' -g './{,!(node_modules)/**/}*.spec.js'"
+    "test": "snyk test && istanbul cover _mocha --recursive -x '**/*.spec.js' -x '**/config/**' -x '**/node_modules/**' -g './{,!(node_modules)/**/}*.spec.js'",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [
     "validate"
@@ -14,17 +16,17 @@
   "author": "Rob Clayburn",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.21.0",
-    "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.2.10",
-    "babel-plugin-transform-flow-strip-types": "^6.21.0",
-    "babel-preset-es2015": "^6.18.0",
-    "chai": "^3.5.0",
-    "eslint-plugin-flowtype": "^2.29.2",
-    "flow-bin": "^0.37.4",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "flow-bin": "^0.59.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
-    "webpack": "^1.14.0"
+    "mocha": "^4.0.1",
+    "webpack": "^3.8.1"
   },
   "babel": {
     "plugins": [
@@ -39,8 +41,10 @@
     "url": "git+https://github.com/cognitivelogic/validate-promise.git"
   },
   "dependencies": {
-    "install": "^0.8.8",
+    "install": "^0.10.1",
     "is-email": "^1.0.0",
-    "npm": "^4.4.4"
-  }
+    "npm": "^5.5.1",
+    "snyk": "^1.49.2"
+  },
+  "snyk": true
 }
