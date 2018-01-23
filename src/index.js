@@ -9,6 +9,7 @@ import float from './rules/float';
 import greaterthan from './rules/greaterthan';
 import int from './rules/int';
 import lessthan from './rules/lessthan';
+import regex from './rules/regex';
 import required from './rules/required';
 import whitelist from './rules/whitelist';
 import type {ValidationPromise,
@@ -97,6 +98,7 @@ export {
   greaterthan,
   int,
   lessthan,
+  regex,
   required,
   whitelist
 };
