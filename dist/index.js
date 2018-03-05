@@ -52,21 +52,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(1);
 
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.whitelist = exports.required = exports.lessthan = exports.int = exports.greaterthan = exports.float = exports.equalto = exports.equals = exports.email = exports.blacklist = exports.before = exports.after = undefined;
+	exports.whitelist = exports.required = exports.regex = exports.lessthan = exports.int = exports.greaterthan = exports.float = exports.equalto = exports.equals = exports.email = exports.blacklist = exports.before = exports.after = undefined;
 
 	var _after = __webpack_require__(2);
 
@@ -108,11 +108,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _lessthan2 = _interopRequireDefault(_lessthan);
 
-	var _required = __webpack_require__(13);
+	var _regex = __webpack_require__(13);
+
+	var _regex2 = _interopRequireDefault(_regex);
+
+	var _required = __webpack_require__(14);
 
 	var _required2 = _interopRequireDefault(_required);
 
-	var _whitelist = __webpack_require__(14);
+	var _whitelist = __webpack_require__(15);
 
 	var _whitelist2 = _interopRequireDefault(_whitelist);
 
@@ -190,7 +194,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  });
 	};
-
 	exports.default = validate;
 	exports.after = _after2.default;
 	exports.before = _before2.default;
@@ -202,12 +205,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.greaterthan = _greaterthan2.default;
 	exports.int = _int2.default;
 	exports.lessthan = _lessthan2.default;
+	exports.regex = _regex2.default;
 	exports.required = _required2.default;
 	exports.whitelist = _whitelist2.default;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -236,9 +240,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -267,9 +271,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -295,9 +299,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -326,9 +330,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -352,9 +356,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = isEmail;
 
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -381,9 +385,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -409,9 +413,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -450,9 +454,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -486,9 +490,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -527,9 +531,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ },
+/***/ }),
 /* 12 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -564,9 +568,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ },
+/***/ }),
 /* 13 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	/**
+	 * Check if a value matches a given regex
+	 * @param {String} value Regex to match
+	 * @param {Object} row Form data
+	 * @param {Function} msg Error message function
+	 * @param {*} arg Validation arguement
+	 * @return {Promise} .
+	 */
+	exports.default = function (value, row, msg, arg) {
+	  var test = typeof arg === 'function' ? arg(value, row) : arg;
+	  var regex = new RegExp(test, 'g');
+
+	  if (regex.test(value)) {
+	    return Promise.resolve();
+	  }
+	  return Promise.reject(msg(value, row, arg));
+	};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -591,9 +623,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	};
 
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -619,7 +651,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return Promise.reject(msg(value, row, arg));
 	};
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

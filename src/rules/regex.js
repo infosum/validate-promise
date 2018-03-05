@@ -1,10 +1,9 @@
 // @flow
 
-type ArgFunc = (value: string, row: Object) => any;
-
+type ArgFunc = (value: string, row: Object) => string;
 /**
- * Check if a value matches another fields value
- * @param {String} value To validate
+ * Check if a value matches a given regex
+ * @param {String} value Regex to match
  * @param {Object} row Form data
  * @param {Function} msg Error message function
  * @param {*} arg Validation arguement
@@ -16,11 +15,10 @@ export default (
     msg: Function,
     arg: string | ArgFunc
   ): Promise<?string> => {
-  if (typeof arg === 'function') {
-    arg = arg(value, row);
-  }
- 
-  if (value === arg) {
+  const test = typeof arg === 'function' ? arg(value, row) : arg;
+  const regex = new RegExp(test, 'g');
+
+  if (regex.test(value)) {
     return Promise.resolve();
   }
   return Promise.reject(msg(value, row, arg));
