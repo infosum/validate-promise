@@ -19,7 +19,8 @@ export default (
   if (typeof arg === 'function') {
     arg = arg(value, row);
   }
-  if (row[arg] && row[arg] === value) {
+ 
+  if (value === arg) {
     return Promise.resolve();
   }
   return Promise.reject(msg(value, row, arg));
