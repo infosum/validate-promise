@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import validate, { notEqual } from '../dist/index';
+import validate, { notEquals } from '../dist/index';
 
 describe('validates', () => {
   let res, failed,
@@ -8,7 +8,7 @@ describe('validates', () => {
         key: 'age',
         promises: [
           {
-            rule: notEqual,
+            rule: notEquals,
             arg: () => '17'
           }
         ],
