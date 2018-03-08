@@ -9,7 +9,7 @@ import float from './rules/float';
 import greaterthan from './rules/greaterthan';
 import int from './rules/int';
 import lessthan from './rules/lessthan';
-import notEqual from './rules/notEqual';
+import notEquals from './rules/notEquals';
 import regex from './rules/regex';
 import required from './rules/required';
 import whitelist from './rules/whitelist';
@@ -99,7 +99,7 @@ export {
   greaterthan,
   int,
   lessthan,
-  notEqual,
+  notEquals,
   regex,
   required,
   whitelist
