@@ -164,6 +164,24 @@ contract = [
 ```
 Validate that the supplied value matches the data's key value (supplied by the arg function)
 
+### Not Equals
+
+```javascript
+contract = [
+  {
+    key: 'age',
+    promises: [
+      {
+        rule: notEquals,
+        arg: (value: any, row: Object) => '17'
+      }
+    ],
+    msg: (value: any, row: Object, arg) => value + ' is 17'
+  }];
+```
+
+Validate that the supplied value is is loosely not equal to the argument.
+
 ### Float
 
 ```javascript

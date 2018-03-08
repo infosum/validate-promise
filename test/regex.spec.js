@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import validate, { regex } from '../dist/index';
 
-describe.only('validates', () => {
+describe('validates', () => {
   const contract = [
     {
       key: 'string',
