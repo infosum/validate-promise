@@ -90,11 +90,7 @@ module.exports = __webpack_require__(1);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-<<<<<<< HEAD
-exports.whitelist = exports.required = exports.regex = exports.notEqual = exports.lessthan = exports.int = exports.greaterthan = exports.float = exports.equalto = exports.equals = exports.email = exports.blacklist = exports.before = exports.after = undefined;
-=======
 exports.whitelist = exports.required = exports.regex = exports.notEquals = exports.lessthan = exports.int = exports.greaterthan = exports.float = exports.equalto = exports.equals = exports.email = exports.blacklist = exports.before = exports.after = undefined;
->>>>>>> 6498a5fc05e08dd979da8244ddc48e3c8c629eab
 
 var _after = __webpack_require__(2);
 
@@ -136,15 +132,9 @@ var _lessthan = __webpack_require__(12);
 
 var _lessthan2 = _interopRequireDefault(_lessthan);
 
-<<<<<<< HEAD
-var _notEqual = __webpack_require__(13);
-
-var _notEqual2 = _interopRequireDefault(_notEqual);
-=======
 var _notEquals = __webpack_require__(13);
 
 var _notEquals2 = _interopRequireDefault(_notEquals);
->>>>>>> 6498a5fc05e08dd979da8244ddc48e3c8c629eab
 
 var _regex = __webpack_require__(14);
 
@@ -244,11 +234,7 @@ exports.float = _float2.default;
 exports.greaterthan = _greaterthan2.default;
 exports.int = _int2.default;
 exports.lessthan = _lessthan2.default;
-<<<<<<< HEAD
-exports.notEqual = _notEqual2.default;
-=======
 exports.notEquals = _notEquals2.default;
->>>>>>> 6498a5fc05e08dd979da8244ddc48e3c8c629eab
 exports.regex = _regex2.default;
 exports.required = _required2.default;
 exports.whitelist = _whitelist2.default;
