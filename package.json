@@ -1,6 +1,6 @@
 {
   "name": "validate-promise",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Promised based validation library",
   "main": "dist/index.js",
   "scripts": {
@@ -17,16 +17,16 @@
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.2",
-    "babel-loader": "^7.1.2",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.4",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
-    "eslint-plugin-flowtype": "^2.39.1",
-    "flow-bin": "^0.59.0",
+    "eslint-plugin-flowtype": "^2.46.1",
+    "flow-bin": "^0.67.1",
     "istanbul": "^0.4.5",
-    "mocha": "^4.0.1",
-    "webpack": "^3.8.1"
+    "mocha": "^5.0.4",
+    "webpack": "^4.1.1"
   },
   "babel": {
     "plugins": [
@@ -41,10 +41,8 @@
     "url": "git+https://github.com/cognitivelogic/validate-promise.git"
   },
   "dependencies": {
-    "install": "^0.10.1",
     "is-email": "^1.0.0",
-    "npm": "^5.5.1",
-    "snyk": "^1.49.2"
+    "snyk": "^1.69.11"
   },
   "snyk": true
 }
