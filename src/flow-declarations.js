@@ -6,12 +6,12 @@ export function ValidationPromise(
 
 export type Validation = {
   promises: Array<(value: string, row: Object, arg: any) => string>;
-  key: string;
+  key: string | string[];
   msg: (value: string, row: Object, arg: any) => string
 };
 
 export type ValidationResponse = {
   state: string;
-  key: string;
+  propPath: string[];
   value: string
 }

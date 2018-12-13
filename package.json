@@ -6,9 +6,8 @@
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
-    "test": "snyk test && istanbul cover _mocha --recursive -x '**/*.spec.js' -x '**/config/**' -x '**/node_modules/**' -g './{,!(node_modules)/**/}*.spec.js'",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "test": "nyc mocha",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "validate"
@@ -16,24 +15,27 @@
   "author": "Rob Clayburn",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.2",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-preset-es2015": "^6.24.1",
-    "chai": "^4.1.2",
-    "eslint-plugin-flowtype": "^2.46.1",
-    "flow-bin": "^0.67.1",
-    "istanbul": "^0.4.5",
-    "mocha": "^5.0.4",
-    "webpack": "^4.1.1"
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-transform-flow-strip-types": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "chai": "^4.2.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "flow-bin": "^0.88.0",
+    "jsdom": "^13.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
   },
   "babel": {
     "plugins": [
-      "transform-flow-strip-types"
+      "@babel/plugin-transform-flow-strip-types"
     ],
     "presets": [
-      "es2015"
+      "@babel/preset-env"
     ]
   },
   "repository": {
@@ -41,8 +43,29 @@
     "url": "git+https://github.com/cognitivelogic/validate-promise.git"
   },
   "dependencies": {
-    "is-email": "^1.0.0",
-    "snyk": "^1.69.11"
+    "is-email": "^1.0.0"
   },
-  "snyk": true
+  "nyc": {
+    "include": [
+      "test/**/*.js"
+    ],
+    "exclude": [
+      "coverage",
+      "node_modules",
+      "src"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "require": [
+      "@babel/plugin-transform-flow-strip-types",
+      "@babel/register",
+      "./test/setup.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "all": true
+  }
 }

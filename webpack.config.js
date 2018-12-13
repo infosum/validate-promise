@@ -1,15 +1,13 @@
-var webpack = require('webpack'),
-  libraryName = 'validate-promise',
-  path = require('path'),
-  entry = [
-    './src/index.js'
-  ],
-  plugins = [
-    new webpack.NoErrorsPlugin()
-  ],
-  loaders = [
-    {test: /\.js$/, exclude: /(node_modules)/, loader: 'babel-loader'}
-  ];
+const webpack = require('webpack');
+const libraryName = 'validate-promise';
+const path = require('path');
+
+const entry = [
+  './src/index.js'
+];
+const loaders = [
+  {test: /\.js$/, exclude: /(node_modules)/, loader: 'babel-loader'}
+];
 
 
   // plugins.push(new webpack.optimize.UglifyJsPlugin({
@@ -22,6 +20,7 @@ var webpack = require('webpack'),
 module.exports = {
   devtool: 'cheap-module-source-map',
   entry: entry,
+  mode: 'production',
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
@@ -31,13 +30,12 @@ module.exports = {
     umdNamedDefine: true
   },
   module: {
-    loaders: loaders
+    rules: loaders
   },
   node: {
     dns: 'mock',
     net: 'mock'
   },
-  plugins: plugins,
   watchOptions: {
     poll: true
   }

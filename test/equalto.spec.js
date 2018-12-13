@@ -18,7 +18,7 @@ describe('validates', () => {
     beforeEach((done) => {
       let data = {
         test: 'hello',
-        equalto: 'hello'
+        equalto: 'test'
       };
 
       validate(contract, data)
@@ -26,7 +26,7 @@ describe('validates', () => {
           res = data;
           done();
         })
-        .catch((error) => done());
+        .catch((error) => console.log(error) || done());
     });
 
     it('passes the validation', () => {
