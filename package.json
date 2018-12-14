@@ -30,14 +30,6 @@
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2"
   },
-  "babel": {
-    "plugins": [
-      "@babel/plugin-transform-flow-strip-types"
-    ],
-    "presets": [
-      "@babel/preset-env"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cognitivelogic/validate-promise.git"
