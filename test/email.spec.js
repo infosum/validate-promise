@@ -5,18 +5,30 @@ describe('validates', () => {
   let res, failed,
     contract = [
       {
-        key: 'email',
+        key: ['user', 'email'],
         promises: [
           {
             rule: email
           }
         ],
         msg: (value, row, arg) => value + ' is not an email'
-      }];
+      },
+      {
+        key: ['user', 'email2'],
+        promises: [
+          {
+            rule: email
+          }
+        ],
+        msg: (value, row, arg) => value + ' is not an email'
+      },
+    ];
   describe('email success?', (done) => {
     beforeEach((done) => {
       let data = {
-        email: 'test@test.com'
+        user: {
+          email: 'test@test.com',
+        },
       };
 
       validate(contract, data)
@@ -32,10 +44,13 @@ describe('validates', () => {
     });
   });
 
-  describe('email failed', (done) => {
+  describe.only('email failed', (done) => {
     beforeEach((done) => {
       let data = {
-        email: 'dooo'
+        user: {
+          email: 'dooo',
+          email2: 'test'
+        },
       };
 
       validate(contract, data)
@@ -43,6 +58,7 @@ describe('validates', () => {
           done();
         })
         .catch((error) => {
+          console.log(error);
           failed = error;
           done();
         });
@@ -50,9 +66,9 @@ describe('validates', () => {
 
     it('fails the validation', () => {
       expect(failed).to.be.an('object');
-      expect(failed).to.have.key('email');
-      expect(failed.email).to.be.an('array');
-      expect(failed.email[0]).to.equal('dooo is not an email');
+      expect(failed).to.have.key('user');
+      expect(failed.user).to.have.property('email');
+      expect(failed.user.email[0]).to.equal('dooo is not an email');
     });
   });
 });
