@@ -1,10 +1,12 @@
-type IntBoundsType = {
-  min?: number,
-  max?: number
-};
+import {
+  ArgFunc,
+  MsgFunc,
+} from '../';
 
-type IntBoundFuncType<T extends object = object> = (value: string, row: T) => IntBoundsType;
-type MsgFunc<T extends object = object> = (value: string, row: T, arg: IntBoundsType | IntBoundFuncType<T>) => string;
+type IntBoundsType = {
+  min?: number;
+  max?: number;
+};
 
 /**
  * Check if a value can be coerced to an integer
@@ -12,8 +14,8 @@ type MsgFunc<T extends object = object> = (value: string, row: T, arg: IntBounds
 export default <T extends object = object>(
   value: string,
   row: T,
-  msg: MsgFunc<T>,
-  arg: IntBoundsType | IntBoundFuncType<T>,
+  msg: MsgFunc<T, IntBoundsType>,
+  arg: IntBoundsType | ArgFunc<T, IntBoundsType>,
 ): Promise<string | void> => {
   if (typeof arg === 'function') {
     arg = arg(value, row);

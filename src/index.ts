@@ -117,6 +117,19 @@ const hashSettled = (promises: ValidationRule[]): Promise<Object[]> => {
 
 export default validate;
 
+
+/**
+ * @template T Interface for the validation row
+ * @template R Return type for the validation argument
+ */
+export type ArgFunc<T extends object, R> = (value: string, row: T) => R;
+/**
+ * @template T Interface for the validation row
+ * @template A Argument type for validation rule
+ */
+export type MsgFunc<T extends object, A = any> = (value: string, row: T, arg?: A | ArgFunc<T, A>) => string;
+
+
 export {
   after,
   before,

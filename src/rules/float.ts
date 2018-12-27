@@ -1,12 +1,12 @@
-// @flow
+import {
+  ArgFunc,
+  MsgFunc,
+} from '../';
 
 type FloatBoundsType = {
   min?: number,
   max?: number
 };
-
-type FloatBoundFuncType<T extends object = object> = (value: string, row: T) => FloatBoundsType;
-type MsgFunc<T extends object = object> = (value: string, row: T, arg: FloatBoundsType | FloatBoundFuncType<T>) => string;
 
 /**
  * Check if a value can be coerced to a float and checks it is between the bounds provided
@@ -14,8 +14,8 @@ type MsgFunc<T extends object = object> = (value: string, row: T, arg: FloatBoun
 export default <T extends object = object>(
   value: string,
   row: T,
-  msg: MsgFunc<T>,
-  arg: FloatBoundsType | FloatBoundFuncType<T>,
+  msg: MsgFunc<T, FloatBoundsType>,
+  arg: FloatBoundsType | ArgFunc<T, FloatBoundsType>,
 ): Promise<string | void> => {
   if (typeof arg === 'function') {
     arg = arg(value, row);

@@ -1,7 +1,9 @@
 import isEmail from 'is-email';
 
-type ArgFunc<T extends object = object> = (value: string, row: T) => string;
-type MsgFunc<T extends object = object> = (value: string, row: T, arg: string | ArgFunc<T>) => string;
+import {
+  ArgFunc,
+  MsgFunc,
+} from '../';
 
 /**
  * Check if a value is an email
@@ -14,8 +16,8 @@ type MsgFunc<T extends object = object> = (value: string, row: T, arg: string | 
 export default <T extends object = object>(
   value: string,
   row: T,
-  msg: MsgFunc<T>,
-  arg: string | ArgFunc,
+  msg: MsgFunc<T, string>,
+  arg: string | ArgFunc<T, string>,
 ) : Promise<string | void> => {
   if (isEmail(value)) {
     return Promise.resolve();

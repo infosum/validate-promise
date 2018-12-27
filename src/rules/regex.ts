@@ -1,5 +1,7 @@
-type ArgFunc<T extends object = object> = (value: string, row: T) => string;
-type MsgFunc<T extends object = object> = (value: string, row: T, arg: string | ArgFunc<T>) => string;
+import {
+  ArgFunc,
+  MsgFunc,
+} from '../';
 
 /**
  * Check if a value matches a given regex
@@ -12,8 +14,8 @@ type MsgFunc<T extends object = object> = (value: string, row: T, arg: string | 
 export default <T extends object = object>(
     value: string,
     row: T,
-    msg: MsgFunc<T>,
-    arg: string | ArgFunc<T>,
+    msg: MsgFunc<T, string>,
+    arg: string | ArgFunc<T, string>,
   ): Promise<string | void> => {
   const test = typeof arg === 'function' ? arg(value, row) : arg;
   const regex = new RegExp(test, 'g');

@@ -1,5 +1,7 @@
-type ArgFunc<T extends object = object> = (value: string, row: T) => string;
-type MsgFunc<T extends object = object> = (value: string, row: T, arg: string | ArgFunc<T>) => string;
+import {
+  ArgFunc,
+  MsgFunc,
+} from '../';
 
 /**
  * Check if a value is after a given date.
@@ -7,8 +9,8 @@ type MsgFunc<T extends object = object> = (value: string, row: T, arg: string | 
 export default <T extends object = object>(
   value: string,
   row: T,
-  msg: MsgFunc<T>,
-  arg: string | ArgFunc<T>
+  msg: MsgFunc<T, string>,
+  arg: string | ArgFunc<T, string>
 ): Promise<string | void> => {
   const test: number = Date.parse(value);
   if (typeof arg === 'function') {

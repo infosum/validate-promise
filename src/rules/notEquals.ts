@@ -1,5 +1,7 @@
-type ArgFunc<T extends object = object> = (value: string, row: T) => any;
-type MsgFunc<T extends object = object> = (value: string, row: T, arg: any | ArgFunc<T>) => string;
+import {
+  ArgFunc,
+  MsgFunc,
+} from '../';
 
 /**
  * Check if a value is not equal to the given argument using loose type checking
@@ -7,8 +9,8 @@ type MsgFunc<T extends object = object> = (value: string, row: T, arg: any | Arg
 export default <T extends object = object>(
   value: string,
   row: T,
-  msg: MsgFunc<T>,
-  arg: any | ArgFunc<T>,
+  msg: MsgFunc<T, any>,
+  arg: any | ArgFunc<T, any>,
 ): Promise<string | void> => {
   if (typeof arg === 'function') {
     arg = arg(value, row);

@@ -24,4 +24,6 @@ export interface Validation<T extends object = object> {
 }
 declare const validate: (contract: Validation<object>[], data: Object) => Promise<boolean | Object>;
 export default validate;
+export declare type ArgFunc<T extends object, R> = (value: string, row: T) => R;
+export declare type MsgFunc<T extends object, A = any> = (value: string, row: T, arg?: A | ArgFunc<T, A>) => string;
 export { after, before, blacklist, email, equals, equalto, float, greaterthan, int, lessthan, notEquals, regex, required, whitelist };

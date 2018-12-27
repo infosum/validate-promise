@@ -1,10 +1,13 @@
-type ArgFunc<T extends object = object> = (value: string, row: T) => number;
+import {
+  ArgFunc,
+  MsgFunc,
+} from '../';
+
 type CompareSet = {
   value: string;
   compare: string;
 };
 
-type MsgFunc<T extends object = object> = (value: string, row: T, arg: number | ArgFunc<T> | CompareSet) => string;
 
 /**
  * Check if a value is less than thr given value
@@ -12,10 +15,10 @@ type MsgFunc<T extends object = object> = (value: string, row: T, arg: number | 
 export default <T extends object = object>(
   value: string,
   row: T,
-  msg: MsgFunc<T>,
-  arg: number | ArgFunc<T> | CompareSet
+  msg: MsgFunc<T, number | CompareSet>,
+  arg: number | CompareSet | ArgFunc<T, number | CompareSet>
 ): Promise<string | void> => {
-  let compare: number | ArgFunc<T> | CompareSet | string = arg;
+  let compare: typeof arg | string = arg;
   if (typeof arg === 'function') {
     compare = arg(value, row);
   }

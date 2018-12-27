@@ -1,4 +1,4 @@
-type MsgFunc<T extends object = object> = (value: string, row: T) => string;
+import { MsgFunc } from '../';
 
 /**
  * Check if a value exists
