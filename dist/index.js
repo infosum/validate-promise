@@ -1,2 +1,82 @@
-!function(e,r){"object"==typeof exports&&"object"==typeof module?module.exports=r():"function"==typeof define&&define.amd?define("validate-promise",[],r):"object"==typeof exports?exports["validate-promise"]=r():e["validate-promise"]=r()}(window,function(){return function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:n})},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.t=function(e,r){if(1&r&&(e=t(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(t.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var o in e)t.d(n,o,function(r){return e[r]}.bind(null,o));return n},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,"a",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p="/",t(t.s=1)}([function(e,r,t){"use strict";var n=/.+\@.+\..+/;e.exports=function(e){return n.test(e)}},function(e,r,t){e.exports=t(2)},function(e,r,t){"use strict";t.r(r);var n=function(e,r,t,n){var o=Date.parse(e);return"function"==typeof n&&(n=n(e,r)),o>Date.parse(n)?Promise.resolve():Promise.reject(t(e,r,n))},o=function(e,r,t,n){var o=Date.parse(e);return"function"==typeof n&&(n=n(e,r)),o<Date.parse(n)?Promise.resolve():Promise.reject(t(e,r,n))},u=function(e,r,t,n){return"function"==typeof n&&(n=n(e,r)),-1===n.indexOf(e)?Promise.resolve():Promise.reject(t(e,r,n))},i=t(0),f=t.n(i),c=function(e,r,t,n){return f()(e)?Promise.resolve():Promise.reject(t(e,r,n))},s=function(e,r,t,n){return"function"==typeof n&&(n=n(e,r)),e==n?Promise.resolve():Promise.reject(t(e,r,n))},a=function(e,r,t,n){return"function"==typeof n&&(n=n(e,r)),e===n?Promise.resolve():Promise.reject(t(e,r,n))},p=function(e,r,t,n){"function"==typeof n&&(n=n(e,r));if(null!==n){if(void 0!==n.min&&parseInt(e,10)<parseInt(n.min,10))return Promise.reject(t(e,r,n));if(n.max&&parseInt(e,10)>parseInt(n.max,10))return Promise.reject(t(e,r,n))}return/^(?:[-+]?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/.test(e)?Promise.resolve():Promise.reject(t(e,r,n))};function l(e){return(l="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}var m=function(e,r,t,n){var o=n;return"function"==typeof n&&(o=n(e,r)),"object"===l(o)&&(e=o.value,o=o.compare),parseInt(e,10)>parseInt(o,10)?Promise.resolve():Promise.reject(t(e,r,n))},y=function(e,r,t,n){"function"==typeof n&&(n=n(e,r));if(null!==n){if(void 0!==n.min&&parseInt(e,10)<parseInt(n.min,10))return Promise.reject(t(e,r,n));if(n.max&&parseInt(e,10)>parseInt(n.max,10))return Promise.reject(t(e,r,n))}return/^(?:[-+]?(?:0|[1-9][0-9]*))$/.test(e)?Promise.resolve():Promise.reject(t(e,r,n))};function d(e){return(d="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}var v=function(e,r,t,n){var o=n;return"function"==typeof n&&(o=n(e,r)),"object"===d(o)&&(e=o.value,o=o.compare),parseInt(e,10)<parseInt(o,10)?Promise.resolve():Promise.reject(t(e,r,n))},P=function(e,r,t,n){return"function"==typeof n&&(n=n(e,r)),e!=n?Promise.resolve():Promise.reject(t(e,r,n))},b=function(e,r,t,n){var o="function"==typeof n?n(e,r):n;return new RegExp(o,"g").test(e)?Promise.resolve():Promise.reject(t(e,r,n))},j=function(e,r,t){return new Promise(function(n,o){return""!==e&&void 0!==e?n():o(t(e,r))})},x=function(e,r,t,n){return"function"==typeof n&&(n=n(e,r)),-1!==n.indexOf(e)?Promise.resolve():Promise.reject(t(e,r,n))};t.d(r,"after",function(){return n}),t.d(r,"before",function(){return o}),t.d(r,"blacklist",function(){return u}),t.d(r,"email",function(){return c}),t.d(r,"equals",function(){return s}),t.d(r,"equalto",function(){return a}),t.d(r,"float",function(){return p}),t.d(r,"greaterthan",function(){return m}),t.d(r,"int",function(){return y}),t.d(r,"lessthan",function(){return v}),t.d(r,"notEquals",function(){return P}),t.d(r,"regex",function(){return b}),t.d(r,"required",function(){return j}),t.d(r,"whitelist",function(){return x});r.default=function(e,r){var t=[];return e.forEach(function(e,n){var o=Array.isArray(e.key)?e.key:[e.key],u=Array.isArray(o)?o.reduce(function(e,r){return e[r]},r):r[o];t=t.concat(e.promises.map(function(t){return{propPath:o,rule:t.rule(u,r,t.msg||e.msg,void 0===t.arg?null:t.arg)}}))}),new Promise(function(e,r){(function(e){return Promise.all(e.map(function(e){var r=e.propPath,t=e.rule;return Promise.resolve(t).then(function(e){return{state:"fulfilled",propPath:r,value:e}},function(e){return{state:"rejected",propPath:r,reason:e}})}))})(t).then(function(t){var n=t.filter(function(e){return"rejected"===e.state}),o={};n.forEach(function(e){var r=e.propPath,t=e.reason;o=function(e,r,t){return r.reduce(function(e,n,o){return o===r.length-1?e[n]?e[n].push(t):e[n]=[t]:e[n]||(e[n]={}),e[n]},e),e}(o,r,t)}),0===n.length&&e(!0),r(o)})})}}])});
-//# sourceMappingURL=index.js.map
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_get_1 = __importDefault(require("lodash.get"));
+const lodash_update_1 = __importDefault(require("lodash.update"));
+const after_1 = __importDefault(require("./rules/after"));
+exports.after = after_1.default;
+const before_1 = __importDefault(require("./rules/before"));
+exports.before = before_1.default;
+const blacklist_1 = __importDefault(require("./rules/blacklist"));
+exports.blacklist = blacklist_1.default;
+const email_1 = __importDefault(require("./rules/email"));
+exports.email = email_1.default;
+const equals_1 = __importDefault(require("./rules/equals"));
+exports.equals = equals_1.default;
+const equalto_1 = __importDefault(require("./rules/equalto"));
+exports.equalto = equalto_1.default;
+const float_1 = __importDefault(require("./rules/float"));
+exports.float = float_1.default;
+const greaterthan_1 = __importDefault(require("./rules/greaterthan"));
+exports.greaterthan = greaterthan_1.default;
+const int_1 = __importDefault(require("./rules/int"));
+exports.int = int_1.default;
+const lessthan_1 = __importDefault(require("./rules/lessthan"));
+exports.lessthan = lessthan_1.default;
+const notEquals_1 = __importDefault(require("./rules/notEquals"));
+exports.notEquals = notEquals_1.default;
+const regex_1 = __importDefault(require("./rules/regex"));
+exports.regex = regex_1.default;
+const required_1 = __importDefault(require("./rules/required"));
+exports.required = required_1.default;
+const whitelist_1 = __importDefault(require("./rules/whitelist"));
+exports.whitelist = whitelist_1.default;
+;
+const setNestedValue = (object, propPath, value) => {
+    return lodash_update_1.default(object, propPath, (arr) => arr ? [...arr, value] : [value]);
+};
+const hashSettled = (promises) => {
+    return Promise.all(promises.map(({ propPath, rule }) => Promise.resolve(rule)
+        .then((value) => {
+        let r = {
+            state: 'fulfilled',
+            propPath,
+            value,
+        };
+        return r;
+    }, (reason) => {
+        let r = {
+            state: 'rejected',
+            propPath,
+            reason,
+        };
+        return r;
+    })));
+}, validate = (contract, data) => {
+    let promises = [];
+    contract.forEach((validation) => {
+        const propPath = Array.isArray(validation.key) ? validation.key : [validation.key];
+        const value = lodash_get_1.default(data, propPath.join('.'));
+        promises = promises.concat(validation.promises.map((p) => ({
+            propPath,
+            rule: p.rule(value, data, p.msg || validation.msg, p.arg === undefined ? null : p.arg),
+        })));
+    });
+    return new Promise((resolve, reject) => {
+        hashSettled(promises)
+            .then((res) => {
+            const errors = res.filter((r) => r.state === 'rejected');
+            let ret = {};
+            errors.forEach(({ propPath, reason }) => {
+                ret = setNestedValue(ret, propPath, reason);
+            });
+            if (errors.length === 0) {
+                resolve(true);
+            }
+            reject(ret);
+        });
+    });
+};
+exports.default = validate;
