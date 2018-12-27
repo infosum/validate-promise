@@ -1,4 +1,4 @@
---compilers js:@babel/register
+--require ts-node/register
 --recursive
 --reporter spec
-./test/*.spec.js
+./test/*.spec.ts

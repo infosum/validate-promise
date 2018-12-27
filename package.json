@@ -1,57 +1,53 @@
 {
   "name": "validate-promise",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "Promised based validation library",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js",
-    "flow": "flow; test $? -eq 0 -o $? -eq 2",
+    "build": "tsc --declaration",
+    "dev": "tsc --watch",
     "test": "nyc mocha",
     "prepublish": "npm run build"
   },
   "keywords": [
     "validate"
   ],
-  "author": "Rob Clayburn",
+  "author": "Rob Clayburn, Richard Honor",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.2.0",
-    "@babel/plugin-transform-flow-strip-types": "^7.2.0",
-    "@babel/preset-env": "^7.2.0",
-    "@babel/register": "^7.0.0",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.4",
+    "@types/mocha": "^5.2.5",
     "chai": "^4.2.0",
-    "eslint-plugin-flowtype": "^3.2.0",
-    "flow-bin": "^0.88.0",
     "jsdom": "^13.0.0",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2"
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cognitivelogic/validate-promise.git"
   },
   "dependencies": {
-    "is-email": "^1.0.0"
+    "is-email": "^1.0.0",
+    "lodash.get": "^4.4.2",
+    "lodash.update": "^4.10.2"
   },
   "nyc": {
     "include": [
-      "test/**/*.js"
+      "src/**/*.ts"
     ],
     "exclude": [
       "coverage",
       "node_modules",
-      "src"
+      "dist",
+      "test"
     ],
     "extension": [
-      ".js"
+      ".ts"
     ],
     "require": [
-      "@babel/plugin-transform-flow-strip-types",
-      "@babel/register",
+      "ts-node/register",
       "./test/setup.js"
     ],
     "reporter": [
