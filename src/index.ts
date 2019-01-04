@@ -18,8 +18,8 @@ import whitelist from './rules/whitelist';
 
 export type ValidationPromise<T> = (
   value: string,
-  row?: T,
-  msg?: (value?: string, row?: T, arg?: any) => string,
+  row: T,
+  msg: (value: string, row: T, arg?: any) => string,
   arg?: any,
 ) => Promise<string | void>;
 
@@ -93,7 +93,7 @@ const hashSettled = (promises: ValidationRule[]): Promise<Object[]> => {
       promises = promises.concat(
         validation.promises.map((p) => ({
           propPath,
-          rule: p.rule(value, data, p.msg || validation.msg, p.arg === undefined ? null : p.arg),
+          rule: p.rule(value, data, (p.msg || validation.msg)!, p.arg === undefined ? null : p.arg),
         })),
       );
     });
