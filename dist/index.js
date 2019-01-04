@@ -61,7 +61,7 @@ const hashSettled = (promises) => {
         const value = lodash_get_1.default(data, propPath.join('.'));
         promises = promises.concat(validation.promises.map((p) => ({
             propPath,
-            rule: p.rule(value, data, p.msg || validation.msg, p.arg === undefined ? null : p.arg),
+            rule: p.rule(value, data, (p.msg || validation.msg), p.arg === undefined ? null : p.arg),
         })));
     });
     return new Promise((resolve, reject) => {

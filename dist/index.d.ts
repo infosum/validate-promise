@@ -12,7 +12,7 @@ import notEquals from './rules/notEquals';
 import regex from './rules/regex';
 import required from './rules/required';
 import whitelist from './rules/whitelist';
-export declare type ValidationPromise<T> = (value: string, row?: T, msg?: (value?: string, row?: T, arg?: any) => string, arg?: any) => Promise<string | void>;
+export declare type ValidationPromise<T> = (value: string, row: T, msg: (value: string, row: T, arg?: any) => string, arg?: any) => Promise<string | void>;
 export interface Validation<T extends object = object> {
     promises: {
         rule: ValidationPromise<T>;
