@@ -18,19 +18,19 @@ import whitelist from './rules/whitelist';
 
 export type ValidationPromise<T> = (
   value: string,
-  row: T,
-  msg: (value: string, row: T, arg: any) => string,
-  arg: any,
+  row?: T,
+  msg?: (value?: string, row?: T, arg?: any) => string,
+  arg?: any,
 ) => Promise<string | void>;
 
 export interface Validation<T extends object = object> {
   promises: {
     rule: ValidationPromise<T>;
-    arg?: (value: string, row: T) => any;
-    msg?: (value: string, row: T, arg: any) => string;
+    arg?: (value?: string, row?: T) => any;
+    msg?: (value?: string, row?: T, arg?: any) => string;
   }[];
   key: string | string[];
-  msg: (value: string, row: T, arg: any) => string;
+  msg?: (value?: string, row?: T, arg?: any) => string;
 };
 
 interface ValidationResponse {

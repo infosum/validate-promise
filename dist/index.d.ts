@@ -12,15 +12,15 @@ import notEquals from './rules/notEquals';
 import regex from './rules/regex';
 import required from './rules/required';
 import whitelist from './rules/whitelist';
-export declare type ValidationPromise<T> = (value: string, row: T, msg: (value: string, row: T, arg: any) => string, arg: any) => Promise<string | void>;
+export declare type ValidationPromise<T> = (value: string, row?: T, msg?: (value?: string, row?: T, arg?: any) => string, arg?: any) => Promise<string | void>;
 export interface Validation<T extends object = object> {
     promises: {
         rule: ValidationPromise<T>;
-        arg?: (value: string, row: T) => any;
-        msg?: (value: string, row: T, arg: any) => string;
+        arg?: (value?: string, row?: T) => any;
+        msg?: (value?: string, row?: T, arg?: any) => string;
     }[];
     key: string | string[];
-    msg: (value: string, row: T, arg: any) => string;
+    msg?: (value?: string, row?: T, arg?: any) => string;
 }
 declare const validate: (contract: Validation<object>[], data: Object) => Promise<boolean | Object>;
 export default validate;
