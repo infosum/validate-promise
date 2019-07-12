@@ -1,6 +1,6 @@
 {
   "name": "validate-promise",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "description": "Promised based validation library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,13 +16,13 @@
   "author": "Rob Clayburn, Richard Honor",
   "license": "MIT",
   "devDependencies": {
-    "@types/mocha": "^5.2.6",
+    "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
-    "jsdom": "^15.1.0",
+    "jsdom": "^15.1.1",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.2.2"
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
   },
   "repository": {
     "type": "git",

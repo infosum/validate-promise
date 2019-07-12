@@ -16,8 +16,10 @@ import regex from './rules/regex';
 import required from './rules/required';
 import whitelist from './rules/whitelist';
 
+export { default as atleastOneRequired } from './rules/atleastOneRequired';
+
 export type ValidationPromise<T> = (
-  value: string,
+  value: string | string[],
   row: T,
   msg: (value: string, row: T, arg?: any) => string,
   arg?: any,
@@ -30,6 +32,7 @@ export interface Validation<T extends object = object> {
     msg?: (value?: string, row?: T, arg?: any) => string;
   }[];
   key: string | string[];
+  keys?: Array<string | string[]>;
   msg?: (value?: string, row?: T, arg?: any) => string;
 };
 
@@ -59,23 +62,23 @@ interface ValidationRule {
  * array of objects describing the promise resolution is returned
  */
 const hashSettled = (promises: ValidationRule[]): Promise<Object[]> => {
-    return Promise.all(promises.map(({ propPath, rule }) => Promise.resolve(rule)
-      .then((value: string): ValidationResponse => {
-        let r: ValidationResponse = {
-          state: 'fulfilled',
-          propPath,
-          value,
-        };
-        return r;
-      }, (reason: string): ValidationResponse => {
-        let r: ValidationResponse = {
-          state: 'rejected',
-          propPath,
-          reason,
-        };
-        return r;
-      })));
-  },
+  return Promise.all(promises.map(({ propPath, rule }) => Promise.resolve(rule)
+    .then((value: string): ValidationResponse => {
+      let r: ValidationResponse = {
+        state: 'fulfilled',
+        propPath,
+        value,
+      };
+      return r;
+    }, (reason: string): ValidationResponse => {
+      let r: ValidationResponse = {
+        state: 'rejected',
+        propPath,
+        reason,
+      };
+      return r;
+    })));
+},
 
   /**
    * Validate data againsts fields
@@ -87,15 +90,28 @@ const hashSettled = (promises: ValidationRule[]): Promise<Object[]> => {
   validate = (contract: Validation[], data: Object): Promise<boolean | Object> => {
     let promises: ValidationRule[] = [];
     contract.forEach((validation: Validation) => {
-      const propPath = Array.isArray(validation.key) ? validation.key : [validation.key];
-      const value = get(data, propPath.join('.'));
+      if (validation.hasOwnProperty('keys')) {
+        const propPaths = validation.keys!.map((key) => {
+          return Array.isArray(key) ? key : [key]
+        });
+        const values = propPaths.map((path) => get(data, path.join('.')));
+        promises = promises.concat(
+          validation.promises.map((p) => ({
+            propPath: propPaths[0],
+            rule: p.rule(values, data, (p.msg || validation.msg)!, p.arg === undefined ? null : p.arg),
+          })),
+        );
+      } else {
+        const propPath = Array.isArray(validation.key) ? validation.key : [validation.key];
+        const value = get(data, propPath.join('.'));
 
-      promises = promises.concat(
-        validation.promises.map((p) => ({
-          propPath,
-          rule: p.rule(value, data, (p.msg || validation.msg)!, p.arg === undefined ? null : p.arg),
-        })),
-      );
+        promises = promises.concat(
+          validation.promises.map((p) => ({
+            propPath,
+            rule: p.rule(value, data, (p.msg || validation.msg)!, p.arg === undefined ? null : p.arg),
+          })),
+        );
+      }
     });
 
     return new Promise((resolve: Function, reject: Function) => {
