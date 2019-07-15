@@ -17,9 +17,10 @@ import required from './rules/required';
 import whitelist from './rules/whitelist';
 
 export { default as atleastOneRequired } from './rules/atleastOneRequired';
+export { default as isUploaded } from './rules/isUploaded';
 
 export type ValidationPromise<T> = (
-  value: string | string[],
+  value: string | string[] | Record<string, number>,
   row: T,
   msg: (value: string, row: T, arg?: any) => string,
   arg?: any,
@@ -92,7 +93,7 @@ const hashSettled = (promises: ValidationRule[]): Promise<Object[]> => {
     contract.forEach((validation: Validation) => {
       if (validation.hasOwnProperty('keys')) {
         const propPaths = validation.keys!.map((key) => {
-          return Array.isArray(key) ? key : [key]
+          return Array.isArray(key) ? key : [key];
         });
         const values = propPaths.map((path) => get(data, path.join('.')));
         promises = promises.concat(
@@ -160,5 +161,5 @@ export {
   notEquals,
   regex,
   required,
-  whitelist
+  whitelist,
 };

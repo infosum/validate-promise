@@ -33,6 +33,10 @@ const required_1 = __importDefault(require("./rules/required"));
 exports.required = required_1.default;
 const whitelist_1 = __importDefault(require("./rules/whitelist"));
 exports.whitelist = whitelist_1.default;
+var atleastOneRequired_1 = require("./rules/atleastOneRequired");
+exports.atleastOneRequired = atleastOneRequired_1.default;
+var isUploaded_1 = require("./rules/isUploaded");
+exports.isUploaded = isUploaded_1.default;
 ;
 const setNestedValue = (object, propPath, value) => {
     return lodash_update_1.default(object, propPath, (arr) => arr ? [...arr, value] : [value]);
@@ -57,12 +61,24 @@ const hashSettled = (promises) => {
 }, validate = (contract, data) => {
     let promises = [];
     contract.forEach((validation) => {
-        const propPath = Array.isArray(validation.key) ? validation.key : [validation.key];
-        const value = lodash_get_1.default(data, propPath.join('.'));
-        promises = promises.concat(validation.promises.map((p) => ({
-            propPath,
-            rule: p.rule(value, data, (p.msg || validation.msg), p.arg === undefined ? null : p.arg),
-        })));
+        if (validation.hasOwnProperty('keys')) {
+            const propPaths = validation.keys.map((key) => {
+                return Array.isArray(key) ? key : [key];
+            });
+            const values = propPaths.map((path) => lodash_get_1.default(data, path.join('.')));
+            promises = promises.concat(validation.promises.map((p) => ({
+                propPath: propPaths[0],
+                rule: p.rule(values, data, (p.msg || validation.msg), p.arg === undefined ? null : p.arg),
+            })));
+        }
+        else {
+            const propPath = Array.isArray(validation.key) ? validation.key : [validation.key];
+            const value = lodash_get_1.default(data, propPath.join('.'));
+            promises = promises.concat(validation.promises.map((p) => ({
+                propPath,
+                rule: p.rule(value, data, (p.msg || validation.msg), p.arg === undefined ? null : p.arg),
+            })));
+        }
     });
     return new Promise((resolve, reject) => {
         hashSettled(promises)

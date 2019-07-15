@@ -339,3 +339,19 @@ contract = [
 ```
 
 Validates that all the supplied `keys` have data.
+
+### isUpload
+
+```javascript
+ const contract = [
+    {
+      key: 'upload',
+      promises: [{
+        rule: isUploaded
+      }],
+      msg: () => 'File not uploaded'
+    }];
+```
+
+Expects the form's upload property to be a `Record<string, number>` type. Successfully validates if all 
+of its values are 100.
