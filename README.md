@@ -321,3 +321,37 @@ contract = [
 ```
 
 Validate that the supplied value is contained within the argument whitelist.
+
+### At least one required
+
+```javascript
+contract = [
+  {
+    key: 'age', // ingored in this case
+    keys: ['age', 'name']
+    promises: [
+      {
+        rule: atleastOneRequired,
+      }
+    ],
+    msg: (value: any, row: Object, arg) => 'Age or name is required'
+  }];
+```
+
+Validates that all the supplied `keys` have data.
+
+### isUpload
+
+```javascript
+ const contract = [
+    {
+      key: 'upload',
+      promises: [{
+        rule: isUploaded
+      }],
+      msg: () => 'File not uploaded'
+    }];
+```
+
+Expects the form's upload property to be a `Record<string, number>` type. Successfully validates if all 
+of its values are 100.

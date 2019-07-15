@@ -12,7 +12,9 @@ import notEquals from './rules/notEquals';
 import regex from './rules/regex';
 import required from './rules/required';
 import whitelist from './rules/whitelist';
-export declare type ValidationPromise<T> = (value: string, row: T, msg: (value: string, row: T, arg?: any) => string, arg?: any) => Promise<string | void>;
+export { default as atleastOneRequired } from './rules/atleastOneRequired';
+export { default as isUploaded } from './rules/isUploaded';
+export declare type ValidationPromise<T> = (value: string | string[] | Record<string, number>, row: T, msg: (value: string, row: T, arg?: any) => string, arg?: any) => Promise<string | void>;
 export interface Validation<T extends object = object> {
     promises: {
         rule: ValidationPromise<T>;
@@ -20,10 +22,11 @@ export interface Validation<T extends object = object> {
         msg?: (value?: string, row?: T, arg?: any) => string;
     }[];
     key: string | string[];
+    keys?: Array<string | string[]>;
     msg?: (value?: string, row?: T, arg?: any) => string;
 }
 declare const validate: (contract: Validation<object>[], data: Object) => Promise<boolean | Object>;
 export default validate;
 export declare type ArgFunc<T extends object, R> = (value: string, row: T) => R;
 export declare type MsgFunc<T extends object, A = any> = (value: string, row: T, arg?: A | ArgFunc<T, A>) => string;
-export { after, before, blacklist, email, equals, equalto, float, greaterthan, int, lessthan, notEquals, regex, required, whitelist };
+export { after, before, blacklist, email, equals, equalto, float, greaterthan, int, lessthan, notEquals, regex, required, whitelist, };
