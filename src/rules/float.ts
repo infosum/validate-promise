@@ -8,7 +8,7 @@ type FloatBoundsType = {
 /**
  * Check if a value can be coerced to a float and checks it is between the bounds provided
  */
-const float: ValidationPromise<object, FloatBoundsType> = (
+const float: ValidationPromise<any, FloatBoundsType> = (
   value,
   row,
   msg,

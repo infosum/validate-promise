@@ -8,7 +8,7 @@ type IntBoundsType = {
 /**
  * Check if a value can be coerced to an integer
  */
-const int: ValidationPromise<object, IntBoundsType> = (
+const int: ValidationPromise<any, IntBoundsType> = (
   value,
   row,
   msg,

@@ -1,11 +1,31 @@
 import { expect } from 'chai';
 
-import validate, { lessthan } from '../src/index';
+import validate, {
+  lessthan,
+  Validation,
+} from '../src/index';
+
+interface IDataCleanerRow {
+  test: '1,',
+}
+
+const typedContract: Validation<IDataCleanerRow>[] = [
+  {
+    key: 'name',
+    promises: [
+      {
+        rule: lessthan,
+      },
+    ],
+    msg: () => 'Name is required'
+  }
+];
 
 describe('validates', () => {
   let res, failed, resLessThanSuccess,
     contract = [
-      {key: 'age',
+      {
+        key: 'age',
         promises: [
           {
             rule: lessthan,
@@ -15,13 +35,13 @@ describe('validates', () => {
         msg: (value, row, arg) => 'age less than 18'
       }],
 
-       contractReturnObject = [
-        {
+    contractReturnObject = [
+      {
         key: 'age',
         promises: [
           {
             rule: lessthan,
-            arg: () => ({compare: 21, value: 19})
+            arg: () => ({ compare: 21, value: 19 })
           }
         ],
         msg: (value, row, arg) => 'age (19) less than 21'
@@ -34,6 +54,25 @@ describe('validates', () => {
       };
 
       validate(contract, data)
+        .then(data => {
+          res = data;
+          done();
+        })
+        .catch(error => done());
+    });
+
+    it('passes the validation', () => {
+      expect(res).to.equal(true);
+    });
+  });
+
+  describe('typed contract: less than success', () => {
+    beforeEach(done => {
+      let data = {
+        age: '17'
+      };
+
+      validate(typedContract, data)
         .then(data => {
           res = data;
           done();

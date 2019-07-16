@@ -8,7 +8,7 @@ type CompareSet = {
 /**
  * Check if a value is greater than the given argument
  */
-const greaterthan: ValidationPromise<object, CompareSet> = (
+const greaterthan: ValidationPromise<any, CompareSet> = (
   value,
   row,
   msg,

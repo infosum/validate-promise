@@ -1,11 +1,11 @@
 import { ValidationPromise } from '../';
 
-const isUpladed: ValidationPromise<object, number | Record<string, number>> = (
+const isUpladed: ValidationPromise<any, number | Record<string, number>> = (
   value,
   row,
   msg,
   arg,
-): Promise<any> => {
+) => {
   if (value === undefined) {
     return Promise.reject(msg(value, row, arg));
   }
