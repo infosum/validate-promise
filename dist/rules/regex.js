@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = (value, row, msg, arg) => {
+const regex = (value, row, msg, arg) => {
+    if (typeof value !== 'string') {
+        return Promise.reject('Value must be a string');
+    }
     const test = typeof arg === 'function' ? arg(value, row) : arg;
     const regex = new RegExp(test, 'g');
     if (regex.test(value)) {
@@ -8,3 +11,4 @@ exports.default = (value, row, msg, arg) => {
     }
     return Promise.reject(msg(value, row, arg));
 };
+exports.default = regex;
