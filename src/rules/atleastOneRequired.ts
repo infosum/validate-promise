@@ -1,14 +1,17 @@
-import { MsgFunc } from '../';
+import { ValidationPromise } from '../';
 
 /**
  * Check if at least one value is required
  */
-export default <T extends object = object>(
-  value: string[],
-  row: T,
-  msg: MsgFunc<T>,
+const atleastOneRequried: ValidationPromise = (
+  value,
+  row,
+  msg,
 ): Promise<string | void> => {
   return new Promise((resolve, reject) => {
+    if (!Array.isArray(value)) {
+      return reject('Value must be an array');
+    }
     const found = value.some((v) => v !== '' && v !== undefined);
     if (found) {
       return resolve();
@@ -17,3 +20,5 @@ export default <T extends object = object>(
     return reject(msg(value.join(', '), row));
   });
 };
+
+export default atleastOneRequried;

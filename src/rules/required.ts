@@ -1,9 +1,9 @@
-import { MsgFunc } from '../';
+import { ValidationPromise } from '../';
 
 /**
  * Check if a value exists
  */
-export default <T extends object = object>(value: string, row: T, msg: MsgFunc<T>) : Promise<string | void> => {
+const required: ValidationPromise = (value, row, msg) => {
   return new Promise((resolve, reject) => {
     if (value !== '' && value !== undefined) {
       return resolve();
@@ -11,3 +11,5 @@ export default <T extends object = object>(value: string, row: T, msg: MsgFunc<T
     return reject(msg(value, row));
   });
 };
+
+export default required;

@@ -1,13 +1,10 @@
-import {
-  ArgFunc,
-  MsgFunc,
-} from '../';
+import { ValidationPromise } from '../';
 
-export default <T extends object = object>(
-  value: Record<string, number>,
-  row: T,
-  msg: MsgFunc<T>,
-  arg: ArgFunc<T, number | Record<string, number>>,
+const isUpladed: ValidationPromise<object, number | Record<string, number>> = (
+  value,
+  row,
+  msg,
+  arg,
 ): Promise<any> => {
   if (value === undefined) {
     return Promise.reject(msg(value, row, arg));
@@ -20,3 +17,5 @@ export default <T extends object = object>(
   }
   return Promise.resolve();
 }
+
+export default isUpladed;

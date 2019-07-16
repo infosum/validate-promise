@@ -19,11 +19,23 @@ import whitelist from './rules/whitelist';
 export { default as atleastOneRequired } from './rules/atleastOneRequired';
 export { default as isUploaded } from './rules/isUploaded';
 
-export type ValidationPromise<T> = (
+/**
+ * @template T Interface for the validation row
+ * @template R Return type for the validation argument
+ */
+export type ArgFunc<T extends object, R> = (value: string, row: T) => R;
+/**
+ * @template T Interface for the validation row
+ * @template A Argument type for validation rule
+ */
+export type MsgFunc<T extends object, A = any> = (value: string, row: T, arg?: A | ArgFunc<T, A>) => string;
+
+
+export type ValidationPromise<T extends object = object, A = any> = (
   value: string | string[] | Record<string, number>,
   row: T,
-  msg: (value: string, row: T, arg?: any) => string,
-  arg?: any,
+  msg: MsgFunc<T, A>,
+  arg?: A | ArgFunc<T, A>,
 ) => Promise<string | void>;
 
 export interface Validation<T extends object = object> {
@@ -36,6 +48,12 @@ export interface Validation<T extends object = object> {
   keys?: Array<string | string[]>;
   msg?: (value?: string, row?: T, arg?: any) => string;
 };
+
+interface ValidationRule {
+  propPath: string[];
+  rule: Promise<any>;
+}
+
 
 interface ValidationResponse {
   state: 'fulfilled' | 'rejected';
@@ -50,12 +68,6 @@ interface ValidationResponse {
 const setNestedValue = (object: object, propPath: string[], value): Object => {
   return update(object, propPath, (arr) => arr ? [...arr, value] : [value]);
 };
-
-
-interface ValidationRule {
-  propPath: string[];
-  rule: Promise<any>;
-}
 
 /**
  * Iterates over an array of promises, unline Promise.all it will not
@@ -133,19 +145,6 @@ const hashSettled = (promises: ValidationRule[]): Promise<Object[]> => {
   };
 
 export default validate;
-
-
-/**
- * @template T Interface for the validation row
- * @template R Return type for the validation argument
- */
-export type ArgFunc<T extends object, R> = (value: string, row: T) => R;
-/**
- * @template T Interface for the validation row
- * @template A Argument type for validation rule
- */
-export type MsgFunc<T extends object, A = any> = (value: string, row: T, arg?: A | ArgFunc<T, A>) => string;
-
 
 export {
   after,
