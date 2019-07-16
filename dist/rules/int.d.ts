@@ -3,5 +3,5 @@ declare type IntBoundsType = {
     min?: number;
     max?: number;
 };
-declare const int: ValidationPromise<object, IntBoundsType>;
+declare const int: ValidationPromise<any, IntBoundsType>;
 export default int;

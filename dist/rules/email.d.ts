@@ -1,3 +1,3 @@
 import { ValidationPromise } from '../';
-declare const email: ValidationPromise;
+declare const email: ValidationPromise<any>;
 export default email;

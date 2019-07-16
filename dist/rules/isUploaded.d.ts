@@ -1,3 +1,3 @@
 import { ValidationPromise } from '../';
-declare const isUpladed: ValidationPromise<object, number | Record<string, number>>;
+declare const isUpladed: ValidationPromise<any, number | Record<string, number>>;
 export default isUpladed;

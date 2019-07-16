@@ -1,3 +1,3 @@
 import { ValidationPromise } from '../';
-declare const after: ValidationPromise;
+declare const after: ValidationPromise<any>;
 export default after;

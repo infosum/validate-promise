@@ -1,3 +1,3 @@
 import { ValidationPromise } from '../';
-declare const notEquals: ValidationPromise;
+declare const notEquals: ValidationPromise<any>;
 export default notEquals;
