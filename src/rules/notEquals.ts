@@ -3,7 +3,7 @@ import { ValidationPromise } from '../';
 /**
  * Check if a value is not equal to the given argument using loose type checking
  */
-const notEquals: ValidationPromise = (
+const notEquals: ValidationPromise<any> = (
   value,
   row,
   msg,

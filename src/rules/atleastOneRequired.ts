@@ -3,7 +3,7 @@ import { ValidationPromise } from '../';
 /**
  * Check if at least one value is required
  */
-const atleastOneRequried: ValidationPromise = (
+const atleastOneRequried: ValidationPromise<any> = (
   value,
   row,
   msg,

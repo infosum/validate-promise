@@ -1,10 +1,39 @@
 import { expect } from 'chai';
 
-import validate, { required } from '../src/index';
+import validate, {
+  required,
+  Validation,
+} from '../src/index';
+
+interface IDataCleanerRow {
+  active: boolean;
+  column: string | number;
+  id: string;
+  func: string;
+  cutset?: string;
+  prefix?: string;
+  old?: string;
+  new?: string;
+  start?: string;
+  end?: string;
+}
+
+const typedContract: Validation<IDataCleanerRow>[] = [
+  {
+    key: 'name',
+    promises: [
+      {
+        rule: required,
+      },
+    ],
+    msg: () => 'Name is required'
+  }
+];
+
 
 describe('validates', () => {
   let res, failed,
-    contract = [
+    contract: Validation[] = [
       {
         key: 'name',
         promises: [
@@ -27,7 +56,7 @@ describe('validates', () => {
         msg: () => 'Should pass'
       }
     ],
-    contractThree = [
+    contractThree: Validation[] = [
       {
         key: 'name',
         promises: [{
@@ -40,7 +69,7 @@ describe('validates', () => {
 
   describe('required success', () => {
     beforeEach((done) => {
-      let contract = [
+      let contract: Validation[] = [
         {
           key: 'name',
           promises: [{
@@ -64,6 +93,27 @@ describe('validates', () => {
       expect(res).to.equal(true);
     });
   });
+
+  describe('required on typed validation contract', () => {
+    beforeEach((done) => {
+      let data = {
+        name: 'heloo'
+      };
+      res = false;
+      validate(typedContract, data)
+        .then((data) => {
+          res = data;
+          done();
+        })
+        .catch((error) => {
+          failed = error;
+          done();
+        });
+    });
+    it('passes validation', () => {
+      expect(res).to.equal(true);
+    })
+  })
 
   describe('required - one fail and one success', () => {
     beforeEach((done) => {

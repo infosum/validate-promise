@@ -3,7 +3,7 @@ import { ValidationPromise } from '../';
 /**
  * Check if a value is in a whitelist
  */
-const whitelist: ValidationPromise = (
+const whitelist: ValidationPromise<any> = (
   value,
   row,
   msg,

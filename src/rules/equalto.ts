@@ -3,7 +3,7 @@ import { ValidationPromise } from '../';
 /**
  * Check if a value matches another fields value
  */
-const equalsTo: ValidationPromise = (
+const equalsTo: ValidationPromise<any> = (
   value,
   row,
   msg,

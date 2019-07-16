@@ -3,7 +3,7 @@ import { ValidationPromise } from '../';
 /**
  * Check if a value is in a blacklist
  */
-const blacklist: ValidationPromise = (
+const blacklist: ValidationPromise<any> = (
   value,
   row,
   msg,

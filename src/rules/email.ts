@@ -5,7 +5,7 @@ import { ValidationPromise } from '../';
 /**
  * Check if a value is an email
  */
-const email: ValidationPromise = (
+const email: ValidationPromise<any> = (
   value,
   row,
   msg,

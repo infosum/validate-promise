@@ -3,7 +3,7 @@ import { ValidationPromise } from '../';
 /**
  * Check if a value is after a given date.
  */
-const after: ValidationPromise = (
+const after: ValidationPromise<any> = (
   value,
   row,
   msg,

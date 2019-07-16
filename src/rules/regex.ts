@@ -8,7 +8,7 @@ import { ValidationPromise } from '../';
  * @param {*} arg Validation arguement
  * @return {Promise} .
  */
-const regex: ValidationPromise = (
+const regex: ValidationPromise<any> = (
   value,
   row,
   msg,

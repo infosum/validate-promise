@@ -3,7 +3,7 @@ import { ValidationPromise } from '../';
 /**
  * Check if a value is before a given date
  */
-const before: ValidationPromise = (
+const before: ValidationPromise<any> = (
   value,
   row,
   msg,

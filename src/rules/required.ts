@@ -3,7 +3,7 @@ import { ValidationPromise } from '../';
 /**
  * Check if a value exists
  */
-const required: ValidationPromise = (value, row, msg) => {
+const required: ValidationPromise<any> = (value, row, msg) => {
   return new Promise((resolve, reject) => {
     if (value !== '' && value !== undefined) {
       return resolve();
