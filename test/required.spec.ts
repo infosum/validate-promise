@@ -186,5 +186,72 @@ describe('validates', () => {
       expect(failed.name[0]).to.equal('Name is required');
     });
   });
+
+  describe('does not run a validation as the condition stops it from being applied', () => {
+    const conditionContract: Validation<IDataCleanerRow>[] = [
+      {
+        key: 'name',
+        promises: [
+          {
+            rule: required,
+            condition: (value, row) => false,
+          },
+        ],
+        msg: () => 'Name is required',
+      }
+    ];
+    beforeEach((done) => {
+      res = false;
+      let data = {
+        name: ''
+      };
+
+      validate(conditionContract, data)
+        .then((data) => {
+          res = data;
+          done();
+        })
+        .catch((error) => done());
+    });
+
+    it('passes the validation', () => {
+      expect(res).to.equal(true);
+    });
+  })
+
+  describe('Runs a validation and fails as the condition is still applicable', () => {
+    const conditionContract: Validation<IDataCleanerRow>[] = [
+      {
+        key: 'name',
+        promises: [
+          {
+            rule: required,
+            condition: (value, row) => true,
+          },
+        ],
+        msg: () => 'Name is required',
+      }
+    ];
+    beforeEach((done) => {
+      res = false;
+      let data = {
+        name: ''
+      };
+
+      validate(conditionContract, data)
+        .then((data) => {
+          res = data;
+          done();
+        })
+        .catch((error) => done());
+    });
+
+    it('fails the validation', () => {
+      expect(failed).to.be.an('object');
+      expect(failed).to.have.key('name');
+      expect(failed.name).to.be.an('array');
+      expect(failed.name[0]).to.equal('Name is required');
+    });
+  })
 });
 

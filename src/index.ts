@@ -38,12 +38,15 @@ export type ValidationPromise<T extends object = object, A = any> = (
   arg?: A | ArgFunc<T, A>,
 ) => Promise<string | void>;
 
+interface IAPromise<T extends object = object> {
+  rule: ValidationPromise<T>;
+  arg?: (value?: string, row?: T) => any;
+  msg?: (value?: string, row?: T, arg?: any) => string;
+  condition?: (value?: string, row?: T) => boolean,
+};
+
 export interface Validation<T extends object = object> {
-  promises: {
-    rule: ValidationPromise<T>;
-    arg?: (value?: string, row?: T) => any;
-    msg?: (value?: string, row?: T, arg?: any) => string;
-  }[];
+  promises: IAPromise<T>[];
   key: string | string[];
   keys?: Array<string | string[]>;
   msg?: (value?: string, row?: T, arg?: any) => string;
@@ -91,58 +94,69 @@ const hashSettled = (promises: ValidationRule[]): Promise<Object[]> => {
       };
       return r;
     })));
-},
+};
 
-  /**
-   * Validate data againsts fields
-   * @param {Array} contract Validation rules
-   * @param {Object} data Form data
-   * @return {Object|Boolean} true if passed, error object if failed,
-   * array error messages keyed on field.name
-   */
-  validate = (contract: Validation[], data: Object): Promise<boolean | Object> => {
-    let promises: ValidationRule[] = [];
-    contract.forEach((validation: Validation) => {
-      if (validation.hasOwnProperty('keys')) {
-        const propPaths = validation.keys!.map((key) => {
-          return Array.isArray(key) ? key : [key];
-        });
-        const values = propPaths.map((path) => get(data, path.join('.')));
-        promises = promises.concat(
-          validation.promises.map((p) => ({
+const testCondition = (value: any, data: Object) => (p: IAPromise) => {
+  if (!p.condition) {
+    return true;
+  }
+  return p.condition(value, data);
+}
+
+/**
+ * Validate data againsts fields
+ * @param {Array} contract Validation rules
+ * @param {Object} data Form data
+ * @return {Object|Boolean} true if passed, error object if failed,
+ * array error messages keyed on field.name
+ */
+const validate = (contract: Validation[], data: Object): Promise<boolean | Object> => {
+  let promises: ValidationRule[] = [];
+  contract.forEach((validation: Validation) => {
+    if (validation.hasOwnProperty('keys')) {
+      const propPaths = validation.keys!.map((key) => {
+        return Array.isArray(key) ? key : [key];
+      });
+      const values = propPaths.map((path) => get(data, path.join('.')));
+      promises = promises.concat(
+        validation.promises
+          .filter(testCondition(values, data))
+          .map((p) => ({
             propPath: propPaths[0],
             rule: p.rule(values, data, (p.msg || validation.msg)!, p.arg === undefined ? null : p.arg),
           })),
-        );
-      } else {
-        const propPath = Array.isArray(validation.key) ? validation.key : [validation.key];
-        const value = get(data, propPath.join('.'));
+      );
+    } else {
+      const propPath = Array.isArray(validation.key) ? validation.key : [validation.key];
+      const value = get(data, propPath.join('.'));
 
-        promises = promises.concat(
-          validation.promises.map((p) => ({
+      promises = promises.concat(
+        validation.promises
+          .filter(testCondition(value, data))
+          .map((p) => ({
             propPath,
             rule: p.rule(value, data, (p.msg || validation.msg)!, p.arg === undefined ? null : p.arg),
           })),
-        );
-      }
-    });
+      );
+    }
+  });
 
-    return new Promise((resolve: Function, reject: Function) => {
-      hashSettled(promises)
-        .then((res: Array<ValidationResponse>) => {
-          const errors = res.filter((r) => r.state === 'rejected');
-          let ret = {};
-          errors.forEach(({ propPath, reason }) => {
-            ret = setNestedValue(ret, propPath, reason);
-          });
-
-          if (errors.length === 0) {
-            resolve(true);
-          }
-          reject(ret);
+  return new Promise((resolve: Function, reject: Function) => {
+    hashSettled(promises)
+      .then((res: Array<ValidationResponse>) => {
+        const errors = res.filter((r) => r.state === 'rejected');
+        let ret = {};
+        errors.forEach(({ propPath, reason }) => {
+          ret = setNestedValue(ret, propPath, reason);
         });
-    });
-  };
+
+        if (errors.length === 0) {
+          resolve(true);
+        }
+        reject(ret);
+      });
+  });
+};
 
 export default validate;
 
