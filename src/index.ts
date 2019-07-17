@@ -119,10 +119,12 @@ const validate = (contract: Validation[], data: Object): Promise<boolean | Objec
       });
       const values = propPaths.map((path) => get(data, path.join('.')));
       promises = promises.concat(
-        validation.promises.map((p) => ({
-          propPath: propPaths[0],
-          rule: p.rule(values, data, (p.msg || validation.msg)!, p.arg === undefined ? null : p.arg),
-        })),
+        validation.promises
+          .filter(testCondition(values, data))
+          .map((p) => ({
+            propPath: propPaths[0],
+            rule: p.rule(values, data, (p.msg || validation.msg)!, p.arg === undefined ? null : p.arg),
+          })),
       );
     } else {
       const propPath = Array.isArray(validation.key) ? validation.key : [validation.key];
