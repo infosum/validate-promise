@@ -1,7 +1,4 @@
-import {
-  ArgFunc,
-  MsgFunc,
-} from '../';
+import { ValidationPromise } from '../';
 
 /**
  * Check if a value matches a given regex
@@ -11,12 +8,15 @@ import {
  * @param {*} arg Validation arguement
  * @return {Promise} .
  */
-export default <T extends object = object>(
-    value: string,
-    row: T,
-    msg: MsgFunc<T, string>,
-    arg: string | ArgFunc<T, string>,
-  ): Promise<string | void> => {
+const regex: ValidationPromise<any> = (
+  value,
+  row,
+  msg,
+  arg,
+) => {
+  if (typeof value !== 'string') {
+    return Promise.reject('Value must be a string');
+  }
   const test = typeof arg === 'function' ? arg(value, row) : arg;
   const regex = new RegExp(test, 'g');
 
@@ -25,3 +25,5 @@ export default <T extends object = object>(
   }
   return Promise.reject(msg(value, row, arg));
 };
+
+export default regex;

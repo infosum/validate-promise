@@ -1,17 +1,17 @@
-import {
-  ArgFunc,
-  MsgFunc,
-} from '../';
+import { ValidationPromise } from '../';
 
 /**
  * Check if a value is in a blacklist
  */
-export default <T extends object = object>(
-  value: string,
-  row: T,
-  msg: MsgFunc<T, string[]>,
-  arg: string[] | ArgFunc<T, string[]>
+const blacklist: ValidationPromise<any> = (
+  value,
+  row,
+  msg,
+  arg,
 ): Promise<string | void> => {
+  if (typeof value !== 'string') {
+    return Promise.reject('Value must be a string');
+  }
   if (typeof arg === 'function') {
     arg = arg(value, row);
   }
@@ -20,3 +20,5 @@ export default <T extends object = object>(
   }
   return Promise.reject(msg(value, row, arg));
 };
+
+export default blacklist;

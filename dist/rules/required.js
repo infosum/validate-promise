@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = (value, row, msg) => {
+const required = (value, row, msg) => {
     return new Promise((resolve, reject) => {
         if (value !== '' && value !== undefined) {
             return resolve();
@@ -8,3 +8,4 @@ exports.default = (value, row, msg) => {
         return reject(msg(value, row));
     });
 };
+exports.default = required;

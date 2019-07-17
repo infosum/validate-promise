@@ -1,6 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = (value, row, msg, arg) => {
+const greaterthan = (value, row, msg, arg) => {
+    if (typeof value === 'number') {
+        value = String(value);
+    }
+    if (typeof value !== 'string') {
+        return Promise.reject('Value must be a string or number');
+    }
     let compare = arg;
     if (typeof arg === 'function') {
         compare = arg(value, row);
@@ -14,3 +20,4 @@ exports.default = (value, row, msg, arg) => {
     }
     return Promise.reject(msg(value, row, arg));
 };
+exports.default = greaterthan;

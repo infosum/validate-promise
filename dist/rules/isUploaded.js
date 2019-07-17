@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = (value, row, msg, arg) => {
+const isUpladed = (value, row, msg, arg) => {
     if (value === undefined) {
         return Promise.reject(msg(value, row, arg));
     }
@@ -12,3 +12,4 @@ exports.default = (value, row, msg, arg) => {
     }
     return Promise.resolve();
 };
+exports.default = isUpladed;

@@ -1,3 +1,3 @@
-import { MsgFunc } from '../';
-declare const _default: <T extends object = object>(value: string[], row: T, msg: MsgFunc<T, any>) => Promise<string | void>;
-export default _default;
+import { ValidationPromise } from '../';
+declare const atleastOneRequried: ValidationPromise<any>;
+export default atleastOneRequried;

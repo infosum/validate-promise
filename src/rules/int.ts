@@ -1,7 +1,4 @@
-import {
-  ArgFunc,
-  MsgFunc,
-} from '../';
+import { ValidationPromise } from '../';
 
 type IntBoundsType = {
   min?: number;
@@ -11,19 +8,25 @@ type IntBoundsType = {
 /**
  * Check if a value can be coerced to an integer
  */
-export default <T extends object = object>(
-  value: string,
-  row: T,
-  msg: MsgFunc<T, IntBoundsType>,
-  arg: IntBoundsType | ArgFunc<T, IntBoundsType>,
-): Promise<string | void> => {
+const int: ValidationPromise<any, IntBoundsType> = (
+  value,
+  row,
+  msg,
+  arg,
+) => {
+  if (typeof value === 'number') {
+    value = String('number');
+  }
+  if (typeof value !== 'string') {
+    return Promise.reject('Value must be a number or a string');
+  }
   if (typeof arg === 'function') {
     arg = arg(value, row);
   }
 
   const int = /^(?:[-+]?(?:0|[1-9][0-9]*))$/;
 
-  if (arg !== null) {
+  if (arg !== null && arg !== undefined) {
     if (arg.min !== undefined && Number(value) < Number(arg.min)) {
       return Promise.reject(msg(value, row, arg));
     }
@@ -38,3 +41,5 @@ export default <T extends object = object>(
   }
   return Promise.reject(msg(value, row, arg));
 };
+
+export default int;
