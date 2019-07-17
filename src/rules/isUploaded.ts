@@ -1,6 +1,6 @@
 import { ValidationPromise } from '../';
 
-const isUpladed: ValidationPromise<any, number | Record<string, number>> = (
+const isUploaded: ValidationPromise<any, number | Record<string, number>> = (
   value,
   row,
   msg,
@@ -18,4 +18,4 @@ const isUpladed: ValidationPromise<any, number | Record<string, number>> = (
   return Promise.resolve();
 }
 
-export default isUpladed;
+export default isUploaded;
