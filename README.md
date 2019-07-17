@@ -19,10 +19,10 @@ var contract = [
     key: 'age', // index to validate in data
     promises: [{
       rule: int,
-      arg: (value: any, row: Object) => 5
+      arg: (value: any, row: Object) => 5,
+      condition: (value: any: row: Object) => true,
     }], // array of validations
     msg: (value: any, row: Object, arg) => value + ' not an int',
-
   }
 ];
 
@@ -38,6 +38,10 @@ validate(contract, data)
     // Validations failed - error is an object keyed on data keys, and containing an array of error messages.
   });
 ```
+
+* `condition` an optional function which applies its associated validation rule when it returns true.
+* `arg` an optional function which can be used to supply form data values to the associated validation rule.
+
 
 # Custom error messages per validation
 
