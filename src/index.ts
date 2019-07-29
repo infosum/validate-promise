@@ -110,9 +110,12 @@ const testCondition = (value: any, data: Object) => (p: IAPromise) => {
  * @return {Object|Boolean} true if passed, error object if failed,
  * array error messages keyed on field.name
  */
-const validate = (contract: Validation[], data: Object): Promise<boolean | Object> => {
+const validate = <T extends object = Object>(
+  contract: Validation<T>[],
+  data: any,
+): Promise<boolean | Object> => {
   let promises: ValidationRule[] = [];
-  contract.forEach((validation: Validation) => {
+  contract.forEach((validation: Validation<T>) => {
     if (validation.hasOwnProperty('keys')) {
       const propPaths = validation.keys!.map((key) => {
         return Array.isArray(key) ? key : [key];
