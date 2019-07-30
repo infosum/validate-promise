@@ -38,6 +38,7 @@ exports.atleastOneRequired = atleastOneRequired_1.default;
 var isUploaded_1 = require("./rules/isUploaded");
 exports.isUploaded = isUploaded_1.default;
 ;
+;
 const setNestedValue = (object, propPath, value) => {
     return lodash_update_1.default(object, propPath, (arr) => arr ? [...arr, value] : [value]);
 };
@@ -58,7 +59,14 @@ const hashSettled = (promises) => {
         };
         return r;
     })));
-}, validate = (contract, data) => {
+};
+const testCondition = (value, data) => (p) => {
+    if (!p.condition) {
+        return true;
+    }
+    return p.condition(value, data);
+};
+const validate = (contract, data) => {
     let promises = [];
     contract.forEach((validation) => {
         if (validation.hasOwnProperty('keys')) {
@@ -66,7 +74,9 @@ const hashSettled = (promises) => {
                 return Array.isArray(key) ? key : [key];
             });
             const values = propPaths.map((path) => lodash_get_1.default(data, path.join('.')));
-            promises = promises.concat(validation.promises.map((p) => ({
+            promises = promises.concat(validation.promises
+                .filter(testCondition(values, data))
+                .map((p) => ({
                 propPath: propPaths[0],
                 rule: p.rule(values, data, (p.msg || validation.msg), p.arg === undefined ? null : p.arg),
             })));
@@ -74,7 +84,9 @@ const hashSettled = (promises) => {
         else {
             const propPath = Array.isArray(validation.key) ? validation.key : [validation.key];
             const value = lodash_get_1.default(data, propPath.join('.'));
-            promises = promises.concat(validation.promises.map((p) => ({
+            promises = promises.concat(validation.promises
+                .filter(testCondition(value, data))
+                .map((p) => ({
                 propPath,
                 rule: p.rule(value, data, (p.msg || validation.msg), p.arg === undefined ? null : p.arg),
             })));
