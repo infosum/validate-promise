@@ -11,6 +11,7 @@ import lessthan from './rules/lessthan';
 import notEquals from './rules/notEquals';
 import regex from './rules/regex';
 import required from './rules/required';
+import url from './rules/url';
 import whitelist from './rules/whitelist';
 export { default as atleastOneRequired } from './rules/atleastOneRequired';
 export { default as isUploaded } from './rules/isUploaded';
@@ -31,4 +32,4 @@ export interface Validation<T extends object = object> {
 }
 declare const validate: <T extends object = Object>(contract: Validation<T>[], data: any) => Promise<boolean | Object>;
 export default validate;
-export { after, before, blacklist, email, equals, equalto, float, greaterthan, int, lessthan, notEquals, regex, required, whitelist, };
+export { after, before, blacklist, email, equals, equalto, float, greaterthan, int, lessthan, notEquals, regex, required, url, whitelist, };
