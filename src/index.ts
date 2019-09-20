@@ -14,6 +14,7 @@ import lessthan from './rules/lessthan';
 import notEquals from './rules/notEquals';
 import regex from './rules/regex';
 import required from './rules/required';
+import url from './rules/url';
 import whitelist from './rules/whitelist';
 
 export { default as atleastOneRequired } from './rules/atleastOneRequired';
@@ -177,5 +178,6 @@ export {
   notEquals,
   regex,
   required,
+  url,
   whitelist,
 };

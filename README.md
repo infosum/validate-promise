@@ -308,6 +308,22 @@ contract = [
 ];
 ```
 
+### Url
+
+```javascript
+contract = [
+  {
+    key: 'url',
+    promises: [
+      {
+        rule: url,
+      }
+    ],
+    msg: (value: any, row: Object, arg) => value + ' is not a valid url'
+  }
+];
+```
+
 ### Whitelist
 
 ```javascript
@@ -357,5 +373,5 @@ Validates that all the supplied `keys` have data.
     }];
 ```
 
-Expects the form's upload property to be a `Record<string, number>` type. Successfully validates if all 
+Expects the form's upload property to be a `Record<string, number>` type. Successfully validates if all
 of its values are 100.
