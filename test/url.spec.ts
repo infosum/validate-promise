@@ -36,6 +36,27 @@ describe('validates', () => {
     })
   })
 
+  describe('url success when empty', () => {
+    let res;
+
+    beforeEach(done => {
+      let data = {
+        string: ''
+      };
+
+      validate(contract, data)
+        .then(data => {
+          res = data;
+          done();
+        })
+        .catch(done);
+    });
+
+    it('should validate when empty', () => {
+      expect(res).to.equal(true);
+    })
+  })
+
   describe('url fail', () => {
     let res;
 
