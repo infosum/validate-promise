@@ -15,12 +15,54 @@ describe('validates', () => {
     }
   ];
 
-  describe('url success', () => {
+  describe('url http success', () => {
     let res;
 
     beforeEach(done => {
       let data = {
         string: 'http://validurl.com'
+      };
+
+      validate(contract, data)
+        .then(data => {
+          res = data;
+          done();
+        })
+        .catch(done);
+    });
+
+    it('should validate', () => {
+      expect(res).to.equal(true);
+    })
+  })
+
+  describe('url https success', () => {
+    let res;
+
+    beforeEach(done => {
+      let data = {
+        string: 'https://validurl.com'
+      };
+
+      validate(contract, data)
+        .then(data => {
+          res = data;
+          done();
+        })
+        .catch(done);
+    });
+
+    it('should validate', () => {
+      expect(res).to.equal(true);
+    })
+  })
+
+  describe('url no http(s) success', () => {
+    let res;
+
+    beforeEach(done => {
+      let data = {
+        string: 'validurl.com'
       };
 
       validate(contract, data)
