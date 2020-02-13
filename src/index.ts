@@ -4,6 +4,7 @@ import update from 'lodash.update';
 import after from './rules/after';
 import before from './rules/before';
 import blacklist from './rules/blacklist';
+import domain from './rules/domain';
 import email from './rules/email';
 import equals from './rules/equals';
 import equalto from './rules/equalto';
@@ -105,7 +106,7 @@ const testCondition = (value: any, data: Object) => (p: IAPromise) => {
 }
 
 /**
- * Validate data againsts fields
+ * Validate data against fields
  * @param {Array} contract Validation rules
  * @param {Object} data Form data
  * @return {Object|Boolean} true if passed, error object if failed,
@@ -168,6 +169,7 @@ export {
   after,
   before,
   blacklist,
+  domain,
   email,
   equals,
   equalto,
