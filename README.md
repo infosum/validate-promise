@@ -133,6 +133,21 @@ contract = [
   }];
 ```
 
+## Domains
+
+```javascript
+const domains = ['abc.com'];
+contract = [
+  {
+    key: 'domains',
+    promises: [
+      {
+        rule: domain(domains),
+      }
+    ],
+    msg: (value: any, row: Object, arg) => arg.type === 'INCORRECT' ? 'Invalid format' : 'Domain already exists',
+  }];
+  ```
 ### Equals
 
 ```javascript

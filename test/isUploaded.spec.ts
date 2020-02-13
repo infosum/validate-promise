@@ -110,7 +110,6 @@ describe('validates', () => {
 
     })
     it('fails the validation', () => {
-      console.log('failed', failed);
       expect(failed).to.be.an('object');
       expect(failed).to.have.key('upload');
       expect(failed.upload).to.be.an('array');
