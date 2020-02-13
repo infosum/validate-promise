@@ -4,8 +4,10 @@ import {
 } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 
-import validate, { Validation } from '../src';
-import domain from '../src/rules/domain';
+import validate, {
+  domain,
+  Validation,
+} from '../src';
 
 use(chaiAsPromised);
 

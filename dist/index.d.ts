@@ -1,6 +1,7 @@
 import after from './rules/after';
 import before from './rules/before';
 import blacklist from './rules/blacklist';
+import domain from './rules/domain';
 import email from './rules/email';
 import equals from './rules/equals';
 import equalto from './rules/equalto';
@@ -32,4 +33,4 @@ export interface Validation<T extends object = object> {
 }
 declare const validate: <T extends object = Object>(contract: Validation<T>[], data: any) => Promise<boolean | Object>;
 export default validate;
-export { after, before, blacklist, email, equals, equalto, float, greaterthan, int, lessthan, notEquals, regex, required, url, whitelist, };
+export { after, before, blacklist, domain, email, equals, equalto, float, greaterthan, int, lessthan, notEquals, regex, required, url, whitelist, };
