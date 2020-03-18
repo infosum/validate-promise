@@ -78,6 +78,27 @@ describe('validates', () => {
     })
   })
 
+  describe('url with upper case valid', () => {
+    let res;
+
+    beforeEach(done => {
+      let data = {
+        string: 'VALID-url.com'
+      };
+
+      validate(contract, data)
+        .then(data => {
+          res = data;
+          done();
+        })
+        .catch(done);
+    });
+
+    it('should validate', () => {
+      expect(res).to.equal(true);
+    })
+  })
+
   describe('url success when empty', () => {
     let res;
 
@@ -119,7 +140,7 @@ describe('validates', () => {
     });
 
     it('should invalidate', () => {
-      expect(res).to.deep.equal({string: ['abc2 not a valid url']});
+      expect(res).to.deep.equal({ string: ['abc2 not a valid url'] });
     });
   });
- });
+});
