@@ -33,12 +33,12 @@ describe('domain validation', () => {
     await expect(validate(contract, { domains: 'test.com' })).to.eventually.equal(true);
   });
 
-  it('invalidates a domain with @ symbol', async () => {
-    await expect(validate(contract, { domains: ['test@test.com'] })).to.be.rejected;
+  it('validates a good domain with multiple full stops', async () => {
+    await expect(validate(contract, { domains: 'test.co.uk' })).to.eventually.equal(true);
   });
 
-  it('invalidates a domain with two full stops', async () => {
-    await expect(validate(contract, { domains: ['test.com.bah'] })).to.be.rejected;
+  it('invalidates a domain with @ symbol', async () => {
+    await expect(validate(contract, { domains: ['test@test.com'] })).to.be.rejected;
   });
 
   it('invalidates a domain which already exists regardless of case', async () => {
