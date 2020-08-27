@@ -307,6 +307,28 @@ contract = [
 
 This tests if value (10) is less than than the compare (0) value.
 
+
+### Longer Than
+
+```javascript
+import { longerThan } from 'validate-promise';
+
+contract = [
+  {
+    key: 'name',
+    promises: [
+      {
+        rule: longerThan,
+        arg: (value: any, row: Object) => ({min: 18, max: 55})
+      }
+    ],
+    msg: (value, row, arg) => value + ' has fewer than 10 characters'
+  }]
+```
+Tests to ensure the length of the string you are validating is longer than the value supplied in 
+the contract's arg. 
+
+
 ### Required
 
 ```javascript
@@ -322,6 +344,27 @@ contract = [
   }
 ];
 ```
+
+### Shorter Than
+
+```javascript
+import {shorterThan} from 'validate-promise';
+
+contract = [
+  {
+    key: 'name',
+    promises: [
+      {
+        rule: shorterThan,
+        arg: (value: any, row: Object) => ({min: 18, max: 55})
+      }
+    ],
+    msg: (value, row, arg) => value + ' has more than 10 characters'
+  }]
+```
+Tests to ensure the length of the string you are validating is less than the value supplied in 
+the contract's arg. 
+
 
 ### Url
 

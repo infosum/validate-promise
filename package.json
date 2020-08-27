@@ -1,6 +1,6 @@
 {
   "name": "validate-promise",
-  "version": "3.5.4",
+  "version": "3.6.0",
   "description": "Promised based validation library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,15 +16,16 @@
   "author": "Rob Clayburn, Richard Honor",
   "license": "MIT",
   "devDependencies": {
-    "@types/chai-as-promised": "^7.1.2",
-    "@types/mocha": "^7.0.2",
+    "@babel/register": "^7.10.5",
+    "@types/chai-as-promised": "^7.1.3",
+    "@types/mocha": "^8.0.3",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "jsdom": "^16.2.2",
-    "mocha": "^7.2.0",
+    "jsdom": "^16.4.0",
+    "mocha": "^8.1.2",
     "nyc": "^15.1.0",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.3"
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
   },
   "repository": {
     "type": "git",

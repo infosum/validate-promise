@@ -20,6 +20,8 @@ import whitelist from './rules/whitelist';
 
 export { default as atleastOneRequired } from './rules/atleastOneRequired';
 export { default as isUploaded } from './rules/isUploaded';
+export { shorterThan } from './rules/shorterThan';
+export { longerThan } from './rules/longerThan';
 
 /**
  * @template T Interface for the validation row
@@ -75,7 +77,7 @@ const setNestedValue = (object: object, propPath: string[], value): Object => {
 };
 
 /**
- * Iterates over an array of promises, unline Promise.all it will not
+ * Iterates over an array of promises, unlike Promise.all it will not
  * stop when one promise is rejected. Instead all promises are run and an
  * array of objects describing the promise resolution is returned
  */

@@ -16,6 +16,8 @@ import url from './rules/url';
 import whitelist from './rules/whitelist';
 export { default as atleastOneRequired } from './rules/atleastOneRequired';
 export { default as isUploaded } from './rules/isUploaded';
+export { shorterThan } from './rules/shorterThan';
+export { longerThan } from './rules/longerThan';
 export declare type ArgFunc<T extends object, R> = (value: string, row: T) => R;
 export declare type MsgFunc<T extends object, A = any> = (value: string, row: T, arg?: A | ArgFunc<T, A>) => string;
 export declare type ValidationPromise<T extends object = object, A = any> = (value: string | string[] | Record<string, number> | number | Date, row: T, msg: MsgFunc<T, A>, arg?: A | ArgFunc<T, A>) => Promise<string | void>;
