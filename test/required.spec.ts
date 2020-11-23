@@ -163,6 +163,30 @@ describe('validates', () => {
     });
   });
 
+  describe('String containing spaces', () => {
+    it('fails if only spaces', async () => {
+      try {
+        await validate(contract, { name: '      ' });
+        expect.fail(0, 1, 'Validation should not pass');
+
+      } catch (e) {
+        expect(e).to.deep.equal({
+          name: ['Name is required'],
+        });
+      }
+    });
+
+    it('passes if starting & ending with spaces but contains other characters', async () => {
+      try {
+        const res = await validate(contract, { name: '  Rob    ' });
+        expect(res).to.equal(true);
+      } catch (e) {
+        expect.fail(0, 1, 'Validation should not fail');
+      }
+    });
+  })
+
+
   describe('required failed', () => {
     beforeEach((done) => {
       let data = {
@@ -217,7 +241,7 @@ describe('validates', () => {
     it('passes the validation', () => {
       expect(res).to.equal(true);
     });
-  })
+  });
 
   describe('Runs a validation and fails as the condition is still applicable', () => {
     const conditionContract: Validation<IDataCleanerRow>[] = [

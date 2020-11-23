@@ -5,10 +5,10 @@ import { ValidationPromise } from '../';
  */
 const required: ValidationPromise<any> = (value, row, msg) => {
   return new Promise((resolve, reject) => {
-    if (value !== '' && value !== undefined) {
+    if ((typeof value === 'string' && value.trim() !== '') && value !== undefined) {
       return resolve();
     }
-    return reject(msg(value, row));
+    return reject(msg(String(value), row));
   });
 };
 
