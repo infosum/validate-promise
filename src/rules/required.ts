@@ -8,6 +8,9 @@ const required: ValidationPromise<any> = (value, row, msg) => {
     if ((typeof value === 'string' && value.trim() !== '') && value !== undefined) {
       return resolve();
     }
+    if (typeof value === 'number') {
+      return resolve();
+    }
     return reject(msg(String(value), row));
   });
 };

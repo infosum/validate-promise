@@ -186,6 +186,17 @@ describe('validates', () => {
     });
   })
 
+  describe('validates a number', () => {
+    it('succeeds with a number', async () => {
+      try {
+        const res = await validate(contract, { name: 1 });
+        expect(res).to.equal(true);
+      } catch (e) {
+        expect.fail(0, 1, 'Validation should not fail');
+      }
+    })
+  })
+
 
   describe('required failed', () => {
     beforeEach((done) => {
@@ -242,6 +253,8 @@ describe('validates', () => {
       expect(res).to.equal(true);
     });
   });
+
+
 
   describe('Runs a validation and fails as the condition is still applicable', () => {
     const conditionContract: Validation<IDataCleanerRow>[] = [
