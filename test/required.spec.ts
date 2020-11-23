@@ -197,6 +197,63 @@ describe('validates', () => {
     })
   })
 
+  describe('using undefined', () => {
+    it('does not validate undefined data', async () => {
+      try {
+        await validate(contract, { name: undefined });
+        expect.fail(0, 1, 'Validation should not pass');
+
+      } catch (e) {
+        expect(e).to.deep.equal({
+          name: ['Name is required'],
+        });
+      }
+    });
+  });
+  describe('using null', () => {
+    it('fails validation', async () => {
+      try {
+        res = await validate(contract, { name: null });
+        expect.fail(0, 1, 'Validation should not pass');
+      } catch (e) {
+        expect(e).to.deep.equal({
+          name: ['Name is required'],
+        });
+      }
+    })
+  })
+
+  describe('using an object', () => {
+    it('validates', async () => {
+      try {
+        const res = await validate(contract, { name: { foo: 'bar' } });
+        expect(res).to.equal(true);
+      } catch (e) {
+        expect.fail(0, 1, 'Validation should not fail');
+      }
+    });
+
+    it('does validate an object where one of its values are empty', async () => {
+      try {
+        const res = await validate(contract, { name: { foo: '', bar: 'bar' } });
+        expect(res).to.equal(true);
+      } catch (e) {
+        expect.fail(0, 1, 'Validation should not fail');
+      }
+    });
+
+    it('does not validate an object where all of its values are empty', async () => {
+      try {
+        await validate(contract, { name: { foo: '', bar: '' } });
+        expect.fail(0, 1, 'Validation should not pass');
+
+      } catch (e) {
+        expect(e).to.deep.equal({
+          name: ['Name is required'],
+        });
+      }
+    });
+  });
 
   describe('required failed', () => {
     beforeEach((done) => {
