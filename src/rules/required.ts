@@ -11,6 +11,12 @@ const required: ValidationPromise<any> = (value, row, msg) => {
     if (typeof value === 'number') {
       return resolve();
     }
+    if (typeof value === 'object' && value !== null) {
+      const mergedValue = Object.keys(value).reduce((prev, next) => prev + String(value[next]), '');
+      if (mergedValue.trim() !== '') {
+        return resolve();
+      }
+    }
     return reject(msg(String(value), row));
   });
 };
