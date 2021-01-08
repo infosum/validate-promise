@@ -19,6 +19,9 @@ const domain = (domains: string[]): ValidationPromise<any> => (
       return reject(msg(String(value), row, { ...arg, type: 'IN_USE' }));
     }
 
+    if (!value.every((v) => v.includes('.'))) {
+      return reject(msg(String(value), row, { ...arg, type: 'INCORRECT' }))
+    }
     const regex = new RegExp('^(?!:\/\/)(?![a-zA-Z0-9-_]+@)([a-zA-Z0-9-_]+)(\.[a-zA-Z]{2,11}?)+$');
 
     const valid = value

@@ -44,4 +44,8 @@ describe('domain validation', () => {
   it('invalidates a domain which already exists regardless of case', async () => {
     await expect(validate(contract, { domains: ['abC.com'] })).to.be.rejected;
   });
+
+  it('invalidates a domain with no "." in it', async () => {
+    await expect(validate(contract, { domains: ['foobar'] })).to.be.rejected;
+  })
 });
