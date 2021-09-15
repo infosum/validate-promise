@@ -34,9 +34,16 @@ validate(contract, data)
   .then(() => {
     // The validations have passed...
   })
-  .catch((error: string[]) => {
+  .catch((error: Record<string, string[]>) => {
     // Validations failed - error is an object keyed on data keys, and containing an array of error messages.
   });
+
+
+  try {
+    validate(contract, data);
+  } catch (error: Record<string, string[]>) {
+    // Validation failed
+  }
 ```
 
 * `condition` an optional function which applies its associated validation rule when it returns true.
@@ -182,6 +189,29 @@ contract = [
   }];
 ```
 Validate that the supplied value matches the data's key value (supplied by the arg function)
+
+### Excludes
+
+```javascript
+contract = [
+  {
+    key: 'name',
+    promises: [
+      {
+        rule: excludes,
+        arg: (value: any, row: Object) => [';']
+      }
+    ],
+    msg: (value: any, row: Object, arg) => value + ' is not the same as other_age'
+  }];
+```
+Validate that the supplied value does not contain any of the supplied arguments.
+
+#### Failed validation
+```javascript
+await validate(contract, {name: ' test ; '});
+```
+
 
 ### Not Equals
 

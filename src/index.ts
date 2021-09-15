@@ -8,6 +8,7 @@ import domain from './rules/domain';
 import email from './rules/email';
 import equals from './rules/equals';
 import equalto from './rules/equalto';
+import excludes from './rules/excludes';
 import float from './rules/float';
 import greaterthan from './rules/greaterthan';
 import int from './rules/int';
@@ -175,6 +176,7 @@ export {
   email,
   equals,
   equalto,
+  excludes,
   float,
   greaterthan,
   int,

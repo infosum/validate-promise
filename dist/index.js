@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.whitelist = exports.url = exports.required = exports.regex = exports.notEquals = exports.lessthan = exports.int = exports.greaterthan = exports.float = exports.equalto = exports.equals = exports.email = exports.domain = exports.blacklist = exports.before = exports.after = exports.longerThan = exports.shorterThan = exports.isUploaded = exports.atleastOneRequired = void 0;
+exports.whitelist = exports.url = exports.required = exports.regex = exports.notEquals = exports.lessthan = exports.int = exports.greaterthan = exports.float = exports.excludes = exports.equalto = exports.equals = exports.email = exports.domain = exports.blacklist = exports.before = exports.after = exports.longerThan = exports.shorterThan = exports.isUploaded = exports.atleastOneRequired = void 0;
 const lodash_get_1 = __importDefault(require("lodash.get"));
 const lodash_update_1 = __importDefault(require("lodash.update"));
 const after_1 = __importDefault(require("./rules/after"));
@@ -20,6 +20,8 @@ const equals_1 = __importDefault(require("./rules/equals"));
 exports.equals = equals_1.default;
 const equalto_1 = __importDefault(require("./rules/equalto"));
 exports.equalto = equalto_1.default;
+const excludes_1 = __importDefault(require("./rules/excludes"));
+exports.excludes = excludes_1.default;
 const float_1 = __importDefault(require("./rules/float"));
 exports.float = float_1.default;
 const greaterthan_1 = __importDefault(require("./rules/greaterthan"));
