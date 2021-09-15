@@ -198,7 +198,7 @@ contract = [
     key: 'name',
     promises: [
       {
-        rule: excldues,
+        rule: excludes,
         arg: (value: any, row: Object) => [';']
       }
     ],
