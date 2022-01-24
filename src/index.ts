@@ -19,6 +19,7 @@ import required from './rules/required';
 import url from './rules/url';
 import whitelist from './rules/whitelist';
 
+export { generateContract } from './generator';
 export { default as atleastOneRequired } from './rules/atleastOneRequired';
 export { default as isUploaded } from './rules/isUploaded';
 export { shorterThan } from './rules/shorterThan';
