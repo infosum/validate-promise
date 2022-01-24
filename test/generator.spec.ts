@@ -18,7 +18,6 @@ describe('generates a contract', () => {
     if (typeof res[0].promises[0].msg === 'function') {
       expect(res?.[0]?.promises[0].msg()).to.equal('* Really required')
     } else {
-      console.log(typeof res[0].promises[0]);
       expect.fail(0, 1, 'message 0 should be a function');
     }
     if (typeof res[1].promises[0].msg === 'function') {
