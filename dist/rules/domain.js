@@ -12,6 +12,9 @@ const domain = (domains) => (value, row, msg, arg) => {
         if (domains.some((d) => value.includes(d.toLowerCase()))) {
             return reject(msg(String(value), row, Object.assign(Object.assign({}, arg), { type: 'IN_USE' })));
         }
+        if (!value.every((v) => v.includes('.'))) {
+            return reject(msg(String(value), row, Object.assign(Object.assign({}, arg), { type: 'INCORRECT' })));
+        }
         const regex = new RegExp('^(?!:\/\/)(?![a-zA-Z0-9-_]+@)([a-zA-Z0-9-_]+)(\.[a-zA-Z]{2,11}?)+$');
         const valid = value
             .map((domain) => regex.test(domain))
