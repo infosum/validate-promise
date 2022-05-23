@@ -38,7 +38,7 @@ export type MsgFunc<T extends object, A = any> = (value: string, row: T, arg?: A
 
 
 export type ValidationPromise<T extends object = object, A = any> = (
-  value: string | string[] | Record<string, number> | number | Date,
+  value: string | string[] | Record<string, number | string> | number | Date,
   row: T,
   msg: MsgFunc<T, A>,
   arg?: A | ArgFunc<T, A>,
