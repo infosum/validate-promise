@@ -22,7 +22,7 @@ export { shorterThan } from './rules/shorterThan';
 export { longerThan } from './rules/longerThan';
 export declare type ArgFunc<T extends object, R> = (value: string, row: T) => R;
 export declare type MsgFunc<T extends object, A = any> = (value: string, row: T, arg?: A | ArgFunc<T, A>) => string;
-export declare type ValidationPromise<T extends object = object, A = any> = (value: string | string[] | Record<string, number | string> | number | Date, row: T, msg: MsgFunc<T, A>, arg?: A | ArgFunc<T, A>) => Promise<string | void>;
+export declare type ValidationPromise<T extends object = object, A = any, V = any> = (value: V, row: T, msg: MsgFunc<T, A>, arg?: A | ArgFunc<T, A>) => Promise<string | void>;
 interface IAPromise<T extends object = object> {
     rule: ValidationPromise<T>;
     arg?: (value?: string, row?: T) => any;
