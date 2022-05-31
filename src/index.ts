@@ -1,5 +1,5 @@
-import get from 'lodash.get';
-import update from 'lodash.update';
+import get from 'lodash/get';
+import update from 'lodash/update';
 
 import after from './rules/after';
 import before from './rules/before';

@@ -1,6 +1,6 @@
 {
   "name": "validate-promise",
-  "version": "3.8.2",
+  "version": "3.8.3",
   "description": "Promised based validation library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,14 +27,15 @@
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   },
+  "peerDependencies": {
+    "lodash": "^4.17.21"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cognitivelogic/validate-promise.git"
   },
   "dependencies": {
-    "is-email": "^1.0.1",
-    "lodash.get": "^4.4.2",
-    "lodash.update": "^4.10.2"
+    "is-email": "^1.0.1"
   },
   "nyc": {
     "include": [
