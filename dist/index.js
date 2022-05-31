@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.whitelist = exports.url = exports.required = exports.regex = exports.notEquals = exports.lessthan = exports.int = exports.greaterthan = exports.float = exports.excludes = exports.equalto = exports.equals = exports.email = exports.domain = exports.blacklist = exports.before = exports.after = exports.longerThan = exports.shorterThan = exports.isUploaded = exports.atleastOneRequired = exports.generateContract = void 0;
-const lodash_get_1 = __importDefault(require("lodash.get"));
-const lodash_update_1 = __importDefault(require("lodash.update"));
+const get_1 = __importDefault(require("lodash/get"));
+const update_1 = __importDefault(require("lodash/update"));
 const after_1 = __importDefault(require("./rules/after"));
 exports.after = after_1.default;
 const before_1 = __importDefault(require("./rules/before"));
@@ -53,7 +53,7 @@ Object.defineProperty(exports, "longerThan", { enumerable: true, get: function (
 ;
 ;
 const setNestedValue = (object, propPath, value) => {
-    return lodash_update_1.default(object, propPath, (arr) => arr ? [...arr, value] : [value]);
+    return update_1.default(object, propPath, (arr) => arr ? [...arr, value] : [value]);
 };
 const hashSettled = (promises) => {
     return Promise.all(promises.map(({ propPath, rule }) => Promise.resolve(rule)
@@ -86,7 +86,7 @@ const validate = (contract, data) => {
             const propPaths = validation.keys.map((key) => {
                 return Array.isArray(key) ? key : [key];
             });
-            const values = propPaths.map((path) => lodash_get_1.default(data, path.join('.')));
+            const values = propPaths.map((path) => get_1.default(data, path.join('.')));
             promises = promises.concat(validation.promises
                 .filter(testCondition(values, data))
                 .map((p) => ({
@@ -96,7 +96,7 @@ const validate = (contract, data) => {
         }
         else {
             const propPath = Array.isArray(validation.key) ? validation.key : [validation.key];
-            const value = lodash_get_1.default(data, propPath.join('.'));
+            const value = get_1.default(data, propPath.join('.'));
             promises = promises.concat(validation.promises
                 .filter(testCondition(value, data))
                 .map((p) => ({
