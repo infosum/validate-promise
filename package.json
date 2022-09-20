@@ -1,6 +1,6 @@
 {
   "name": "validate-promise",
-  "version": "3.8.3",
+  "version": "3.8.4",
   "description": "Promised based validation library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,7 +32,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cognitivelogic/validate-promise.git"
+    "url": "git+https://github.com/infosum/validate-promise.git"
   },
   "dependencies": {
     "is-email": "^1.0.1"
