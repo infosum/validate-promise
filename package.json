@@ -1,6 +1,6 @@
 {
   "name": "validate-promise",
-  "version": "3.8.3",
+  "version": "3.8.4",
   "description": "Promised based validation library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
